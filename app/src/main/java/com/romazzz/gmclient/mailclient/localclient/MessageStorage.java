@@ -5,4 +5,18 @@ package com.romazzz.gmclient.mailclient.localclient;
  */
 
 public class MessageStorage implements IMessageStorage {
+    @Override
+    public void saveMessage() {
+
+    }
+
+    @Override
+    public void markSent() {
+
+    }
+
+    @Override
+    public void markDeleted() {
+
+    }
 }
