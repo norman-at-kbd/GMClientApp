@@ -12,9 +12,11 @@ import java.util.List;
 public class LocalClient implements ILocalClient {
 
     private INetworkMailClient mNetworkMailClient;
+    private IMessageStorage mMessageStorage;
 
-    public LocalClient(INetworkMailClient networkMailClient) {
+    public LocalClient(INetworkMailClient networkMailClient, IMessageStorage messageStorage) {
         this.mNetworkMailClient = networkMailClient;
+        this.mMessageStorage = messageStorage;
     }
 
     @Override
