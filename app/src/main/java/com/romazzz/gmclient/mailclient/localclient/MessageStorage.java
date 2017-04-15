@@ -2,6 +2,7 @@ package com.romazzz.gmclient.mailclient.localclient;
 
 import com.romazzz.gmclient.mailclient.IMessage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,10 +10,11 @@ import java.util.List;
  */
 
 public class MessageStorage implements IMessageStorage {
+    List<IMessage> mMessages = new ArrayList<>();
 
     @Override
-    public void saveMessage() {
-
+    public void saveMessage(IMessage message) {
+            mMessages.add(message);
     }
 
     @Override
@@ -21,7 +23,7 @@ public class MessageStorage implements IMessageStorage {
     }
 
     @Override
-    public void markDeleted(IMessage message) {
+    public void delete(IMessage message) {
 
     }
 
