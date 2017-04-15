@@ -9,8 +9,8 @@ import java.util.List;
  */
 
 public interface IMessageStorage {
-    void saveMessage();
+    void saveMessage(IMessage message);
     void markSent(IMessage message);
-    void markDeleted(IMessage message);
+    void delete(IMessage message);
     List<IMessage> getMessages();
 }
