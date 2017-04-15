@@ -2,19 +2,20 @@ package com.romazzz.gmclient.mailclient.localclient;
 
 import com.romazzz.gmclient.mailclient.IMessage;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by z01tan on 4/9/17.
  */
 
 public class MessageStorage implements IMessageStorage {
-    List<IMessage> mMessages = new ArrayList<>();
+    Map<Integer, IMessage> mMessages = new HashMap<>();
 
     @Override
     public void saveMessage(IMessage message) {
-            mMessages.add(message);
+            mMessages.put(message.getID(), message);
     }
 
     @Override
