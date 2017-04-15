@@ -1,4 +1,4 @@
-package com.romazzz.gmclient;
+package com.romazzz.gmclient.mailclient.localclient;
 
 import com.romazzz.gmclient.mailclient.IMessage;
 import com.romazzz.gmclient.mailclient.localclient.IMessageStorage;
