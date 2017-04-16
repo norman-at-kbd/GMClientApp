@@ -2,8 +2,8 @@ package com.romazzz.gmclient.mailclient.localclient;
 
 import com.romazzz.gmclient.mailclient.IMessage;
 
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,7 +29,7 @@ public class MessageStorage implements IMessageStorage {
     }
 
     @Override
-    public List<IMessage> getMessages() {
-        return null;
+    public Collection<IMessage> getMessages() {
+        return mMessages.values();
     }
 }
