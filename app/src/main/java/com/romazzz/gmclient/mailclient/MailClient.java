@@ -23,12 +23,13 @@ public class MailClient implements IMailClient {
 
     @Override
     public void login() {
-
+        mNetworkMailClient.login();
     }
 
     @Override
     public void send(IMessage message) {
-
+        addToLocalStorage(message);
+        sendWithNetworkClient(message);
     }
 
     @Override
@@ -37,10 +38,18 @@ public class MailClient implements IMailClient {
     }
 
     protected void addToLocalStorage(IMessage message) {
-
+        mMessageStorage.saveMessage(message);
     }
 
     protected void sendWithNetworkClient(IMessage message) {
+        mNetworkMailClient.send(message);
+    }
 
+    protected INetworkMailClient getmNetworkMailClient() {
+        return mNetworkMailClient;
+    }
+
+    protected IMessageStorage getmMessageStorage() {
+        return mMessageStorage;
     }
 }
