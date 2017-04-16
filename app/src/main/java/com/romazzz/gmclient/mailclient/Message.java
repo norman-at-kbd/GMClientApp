@@ -10,13 +10,13 @@ public class Message implements IMessage {
     private final String mTo;
     private final String mSubject;
     private final String mText;
-    private final int mID;
+    private final String mID;
     private boolean mIsUnread;
     private boolean mIsSent;
 
     public Message(String from, String to, String subject, String text) {
         MESSAGE_COUNTER += 1;
-        this.mID = MESSAGE_COUNTER;
+        this.mID = Integer.toString(MESSAGE_COUNTER);
         this.mFrom = from;
         this.mTo = to;
         this.mSubject = subject;
@@ -24,7 +24,7 @@ public class Message implements IMessage {
     }
 
     @Override
-    public int getID() {
+    public String getID() {
         return mID;
     }
 

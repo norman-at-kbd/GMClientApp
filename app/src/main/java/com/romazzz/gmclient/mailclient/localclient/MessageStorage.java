@@ -11,7 +11,7 @@ import java.util.Map;
  */
 
 public class MessageStorage implements IMessageStorage {
-    Map<Integer, IMessage> mMessages = new HashMap<>();
+    Map<String, IMessage> mMessages = new HashMap<>();
 
     @Override
     public void saveMessage(IMessage message) {

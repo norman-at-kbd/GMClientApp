@@ -7,7 +7,7 @@ package com.romazzz.gmclient.mailclient;
 public interface IMessage {
     boolean isSent();
     boolean isUnread();
-    int getID();
+    String getID();
     String getFrom();
     String getTo();
     String getSubject();
