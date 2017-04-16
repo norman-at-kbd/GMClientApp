@@ -1,6 +1,8 @@
-package com.romazzz.gmclient.mailclient.localclient;
+package com.romazzz.gmclient.mailclient;
 
 import com.romazzz.gmclient.mailclient.IMessage;
+import com.romazzz.gmclient.mailclient.localclient.ILocalClient;
+import com.romazzz.gmclient.mailclient.localclient.IMessageStorage;
 import com.romazzz.gmclient.mailclient.network.INetworkMailClient;
 
 import java.util.List;
@@ -9,12 +11,12 @@ import java.util.List;
  * Created by z01tan on 4/9/17.
  */
 
-public class LocalClient implements ILocalClient {
+public class MailClient implements IMailClient {
 
     private INetworkMailClient mNetworkMailClient;
     private IMessageStorage mMessageStorage;
 
-    public LocalClient(INetworkMailClient networkMailClient, IMessageStorage messageStorage) {
+    public MailClient(INetworkMailClient networkMailClient, IMessageStorage messageStorage) {
         this.mNetworkMailClient = networkMailClient;
         this.mMessageStorage = messageStorage;
     }
