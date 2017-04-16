@@ -41,7 +41,7 @@ public class MessageStorageTest {
     }
 
     @Test
-    public void testASave() {
+    public void testSave() {
         IMessageStorage storage = new MessageStorage();
         int before = storage.getMessages().size();
         storage.saveMessage(message1);
@@ -54,17 +54,12 @@ public class MessageStorageTest {
     }
 
     @Test
-    public void testBDelete() {
+    public void testDelete() {
         IMessageStorage storage = new MessageStorage();
         storage.saveMessage(message1);
         storage.saveMessage(message2);
         storage.delete(message1);
         assertTrue(!storage.getMessages().contains(message1));
-    }
-
-    @Test
-    public void testCMarkSent() {
-
     }
 
     @Test
