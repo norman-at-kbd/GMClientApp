@@ -14,22 +14,22 @@ public class MessageStorage implements IMessageStorage {
     Map<String, IMessage> mMessages = new HashMap<>();
 
     @Override
-    public void saveMessage(IMessage message) {
+    public synchronized void saveMessage(IMessage message) {
             mMessages.put(message.getID(), message);
     }
 
     @Override
-    public void markSent(IMessage message) {
+    public synchronized void markSent(IMessage message) {
 
     }
 
     @Override
-    public void delete(IMessage message) {
-
+    public synchronized void delete(IMessage message) {
+        mMessages.remove(message.getID());
     }
 
     @Override
-    public Collection<IMessage> getMessages() {
+    public synchronized Collection<IMessage> getMessages() {
         return mMessages.values();
     }
 }
