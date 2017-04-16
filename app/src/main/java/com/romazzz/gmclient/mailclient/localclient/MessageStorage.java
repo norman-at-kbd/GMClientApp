@@ -19,8 +19,8 @@ public class MessageStorage implements IMessageStorage {
     }
 
     @Override
-    public synchronized void markSent(IMessage message) {
-
+    public synchronized IMessage getMessage(String id) {
+        return mMessages.get(id);
     }
 
     @Override

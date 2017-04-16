@@ -10,7 +10,7 @@ import java.util.Collection;
 
 public interface IMessageStorage {
     void saveMessage(IMessage message);
-    void markSent(IMessage message);
+    IMessage getMessage(String id);
     void delete(IMessage message);
     Collection<IMessage> getMessages();
 }
