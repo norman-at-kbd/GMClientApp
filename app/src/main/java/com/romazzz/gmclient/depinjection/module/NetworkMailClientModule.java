@@ -13,7 +13,7 @@ import dagger.Provides;
 @Module
 public class NetworkMailClientModule {
     @Provides
-    INetworkMailClient provideNetworkMailClient() {
+    protected INetworkMailClient provideNetworkMailClient() {
         return new NetworkMailClient();
     }
 }

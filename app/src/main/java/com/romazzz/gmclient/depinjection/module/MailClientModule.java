@@ -15,7 +15,7 @@ import dagger.Provides;
 @Module
 public class MailClientModule {
     @Provides
-    IMailClient provideMailClient(INetworkMailClient networkMailClient,
+    protected IMailClient provideMailClient(INetworkMailClient networkMailClient,
                                   IMessageStorage messageStorage) {
         return new MailClient(networkMailClient, messageStorage);
     }
