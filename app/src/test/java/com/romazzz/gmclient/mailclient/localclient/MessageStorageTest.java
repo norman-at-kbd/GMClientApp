@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import static org.junit.Assert.*;
 
@@ -63,8 +64,24 @@ public class MessageStorageTest {
     }
 
     @Test
-    public void testGetMessages() {
+    public void testGetMessage() {
+        IMessageStorage storage = new MessageStorage();
+        storage.saveMessage(message1);
+        storage.saveMessage(message2);
+        IMessage extractedMessaage = storage.getMessage(message1.getID());
+        assertEquals(extractedMessaage, message1);
+        IMessage extractedMessaage2 = storage.getMessage(message2.getID());
+        assertEquals(extractedMessaage2, message2);
+    }
 
+    @Test
+    public void testGetMessages() {
+        IMessageStorage storage = new MessageStorage();
+        storage.saveMessage(message1);
+        storage.saveMessage(message2);
+        Collection<IMessage> messages = storage.getMessages();
+        assertTrue(messages.contains(message1));
+        assertTrue(messages.contains(message2));
     }
 
     @After
