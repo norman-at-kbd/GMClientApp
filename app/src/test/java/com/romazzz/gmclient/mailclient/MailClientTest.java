@@ -8,6 +8,9 @@ import com.romazzz.gmclient.mailclient.network.NetworkMailClient;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -63,5 +66,13 @@ public class MailClientTest {
         mailClient.send(new Message("f","t","s","t"));
         assertTrue(isLoginCalled);
         assertTrue(isMailSent);
+    }
+
+    @Test
+    public void java8Test() {
+        List<Integer> list = Arrays.asList(1,2,3,4,5,6,7,8,9,0);
+        list.forEach(System.out::print);
+        System.out.println("");
+        list.stream().filter(s->s>5).forEach(System.out::print);
     }
 }
