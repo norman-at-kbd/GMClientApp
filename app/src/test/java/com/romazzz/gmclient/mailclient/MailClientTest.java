@@ -1,7 +1,6 @@
 package com.romazzz.gmclient.mailclient;
 
-import com.romazzz.gmclient.depinjection.component.DaggerMailClientComponent;
-import com.romazzz.gmclient.depinjection.module.MailClientModule;
+import com.romazzz.gmclient.di.component.DaggerMailClientComponent;
 import com.romazzz.gmclient.mailclient.localclient.IMessageStorage;
 import com.romazzz.gmclient.mailclient.network.INetworkMailClient;
 import com.romazzz.gmclient.mailclient.network.NetworkMailClient;

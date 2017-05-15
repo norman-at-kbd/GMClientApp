@@ -1,6 +1,6 @@
 package com.romazzz.gmclient.mailclient;
 
-import com.romazzz.gmclient.depinjection.module.MailClientModule;
+import com.romazzz.gmclient.di.module.MailClientModule;
 import com.romazzz.gmclient.mailclient.localclient.IMessageStorage;
 import com.romazzz.gmclient.mailclient.network.INetworkMailClient;
 

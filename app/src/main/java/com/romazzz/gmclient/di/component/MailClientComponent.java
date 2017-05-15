@@ -1,8 +1,8 @@
-package com.romazzz.gmclient.depinjection.component;
+package com.romazzz.gmclient.di.component;
 
-import com.romazzz.gmclient.depinjection.module.MailClientModule;
-import com.romazzz.gmclient.depinjection.module.MessageStorageModule;
-import com.romazzz.gmclient.depinjection.module.NetworkMailClientModule;
+import com.romazzz.gmclient.di.module.MailClientModule;
+import com.romazzz.gmclient.di.module.MessageStorageModule;
+import com.romazzz.gmclient.di.module.NetworkMailClientModule;
 import com.romazzz.gmclient.mailclient.IMailClient;
 
 import javax.inject.Singleton;

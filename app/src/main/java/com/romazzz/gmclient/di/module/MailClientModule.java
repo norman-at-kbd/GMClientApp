@@ -1,4 +1,4 @@
-package com.romazzz.gmclient.depinjection.module;
+package com.romazzz.gmclient.di.module;
 
 import com.romazzz.gmclient.mailclient.IMailClient;
 import com.romazzz.gmclient.mailclient.MailClient;

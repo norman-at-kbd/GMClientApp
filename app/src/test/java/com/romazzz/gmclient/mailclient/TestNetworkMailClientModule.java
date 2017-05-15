@@ -1,8 +1,7 @@
 package com.romazzz.gmclient.mailclient;
 
-import com.romazzz.gmclient.depinjection.module.NetworkMailClientModule;
+import com.romazzz.gmclient.di.module.NetworkMailClientModule;
 import com.romazzz.gmclient.mailclient.network.INetworkMailClient;
-import com.romazzz.gmclient.mailclient.network.NetworkMailClient;
 
 import dagger.Module;
 import dagger.Provides;
