@@ -1,4 +1,4 @@
-package com.romazzz.gmclient.view;
+package com.romazzz.gmclient.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,7 +15,7 @@ import android.view.MenuItem;
 
 import com.romazzz.gmclient.R;
 
-public class MainActivity extends AppCompatActivity
+public class LoginActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
