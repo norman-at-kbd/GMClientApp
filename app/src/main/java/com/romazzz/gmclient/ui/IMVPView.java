@@ -5,6 +5,7 @@ package com.romazzz.gmclient.ui;
  */
 
 public interface IMVPView {
-
+    void showProgress();
+    void hideProgress();
     void showConnectionError();
 }

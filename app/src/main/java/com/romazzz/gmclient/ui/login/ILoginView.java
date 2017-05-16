@@ -7,4 +7,5 @@ import com.romazzz.gmclient.ui.IMVPView;
  */
 
 public interface ILoginView extends IMVPView {
+    void loginPressed();
 }
