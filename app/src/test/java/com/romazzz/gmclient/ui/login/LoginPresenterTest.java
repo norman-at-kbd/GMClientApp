@@ -16,6 +16,7 @@ import static org.mockito.Mockito.verify;
 public class LoginPresenterTest {
     @Mock
     LoginView loginView;
+
     LoginPresenter loginPresenter;
 
     @Before
@@ -26,8 +27,22 @@ public class LoginPresenterTest {
     }
 
     @Test
-    public void presenterTest() {
+    public void presenterStartLoginTest() {
         loginPresenter.tryToLogin();
         verify(loginView).showProgress();
+    }
+
+    @Test
+    public void  presenterLoginSuccesTest() {
+        loginPresenter.onLoginError();
+        verify(loginView).hideProgress();
+        verify(loginView).showLoginError();
+    }
+
+    @Test
+    public void presenterLoginErrorTest() {
+        loginPresenter.onLoginSuccess();
+        verify(loginView).hideProgress();
+        verify(loginView).onLoginSuccess();
     }
 }
