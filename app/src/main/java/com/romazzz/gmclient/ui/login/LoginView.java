@@ -38,4 +38,14 @@ public class LoginView extends BaseActivity implements ILoginView {
     public void loginPressed() {
 
     }
+
+    @Override
+    public void showLoginError() {
+
+    }
+
+    @Override
+    public void onLoginSuccess() {
+
+    }
 }

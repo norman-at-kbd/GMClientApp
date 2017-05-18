@@ -19,4 +19,14 @@ public class LoginPresenter implements ILoginPresenter {
     public void tryToLogin() {
 
     }
+
+    @Override
+    public void onLoginSuccess() {
+
+    }
+
+    @Override
+    public void onLoginError() {
+
+    }
 }
