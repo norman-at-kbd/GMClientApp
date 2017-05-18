@@ -36,7 +36,7 @@ public class LoginView extends BaseActivity implements ILoginView {
 
     @Override
     public void loginPressed() {
-
+        mPresenter.tryToLogin();
     }
 
     @Override
