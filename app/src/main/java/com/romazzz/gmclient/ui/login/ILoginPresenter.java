@@ -8,4 +8,6 @@ import com.romazzz.gmclient.ui.IMVPPresenter;
 
 public interface ILoginPresenter extends IMVPPresenter <ILoginView> {
     void tryToLogin();
+    void onLoginSuccess();
+    void onLoginError();
 }
