@@ -14,10 +14,17 @@ import com.romazzz.gmclient.di.module.ViewModule;
 
 public class BaseActivity extends AppCompatActivity {
     protected ViewComponent mViewComponent;
-
+    public BaseActivity() {
+        super();
+        mViewComponent = getViewComponent();
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewComponent = DaggerViewComponent.builder().viewModule(new ViewModule()).build();
+//        mViewComponent = getViewComponent();
+    }
+
+    protected ViewComponent getViewComponent() {
+        return DaggerViewComponent.builder().viewModule(new ViewModule()).build();
     }
 }
