@@ -14,7 +14,7 @@ import dagger.Provides;
 public class ViewModule {
     @Provides
     @PerViewScope
-    ILoginPresenter getLoginPresenter() {
+    protected ILoginPresenter getLoginPresenter() {
         return null;
     }
 }
