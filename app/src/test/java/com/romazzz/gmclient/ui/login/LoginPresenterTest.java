@@ -38,12 +38,8 @@ public class LoginPresenterTest {
             }
         }).build();
 
-        loginView = new LoginView() {
-            @Override
-            protected ViewComponent getViewComponent() {
-                return viewComponent;
-            }
-        };
+        loginView = new LoginView();
+        viewComponent.inject(loginView);
     }
 
     @Test
