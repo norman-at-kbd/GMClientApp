@@ -14,8 +14,10 @@ import com.romazzz.gmclient.di.module.ViewModule;
 
 public class BaseActivity extends AppCompatActivity {
     protected ViewComponent mViewComponent;
-    public BaseActivity() {
-        super();
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         mViewComponent = getViewComponent();
     }
 
