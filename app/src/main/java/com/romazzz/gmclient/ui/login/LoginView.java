@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.romazzz.gmclient.R;
 import com.romazzz.gmclient.ui.BaseActivity;
 
 import javax.inject.Inject;
@@ -24,6 +25,7 @@ public class LoginView extends BaseActivity implements ILoginView {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewComponent.inject(this);
+        setContentView(R.layout.login_view);
     }
 
     @Override
