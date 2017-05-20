@@ -1,15 +1,17 @@
 package com.romazzz.gmclient.ui.login;
 
+import java.lang.ref.WeakReference;
+
 /**
  * Created by z01tan on 5/16/17.
  */
 
 public class LoginPresenter implements ILoginPresenter {
-    ILoginView mView;
+    WeakReference<ILoginView> mView;
 
     @Override
     public void onAttach(ILoginView view) {
-        mView = view;
+        mView = new WeakReference<>(view);
     }
 
     @Override
@@ -19,18 +21,23 @@ public class LoginPresenter implements ILoginPresenter {
 
     @Override
     public void tryToLogin() {
-        mView.showProgress();
+        if(mView.get()!=null)
+            mView.get().showProgress();
     }
 
     @Override
     public void onLoginSuccess() {
-        mView.onLoginSuccess();
-        mView.hideProgress();
+        if(mView.get()!=null) {
+            mView.get().onLoginSuccess();
+            mView.get().hideProgress();
+        }
     }
 
     @Override
     public void onLoginError() {
-        mView.hideProgress();
-        mView.showLoginError();
+        if(mView.get()!=null) {
+            mView.get().hideProgress();
+            mView.get().showLoginError();
+        }
     }
 }
