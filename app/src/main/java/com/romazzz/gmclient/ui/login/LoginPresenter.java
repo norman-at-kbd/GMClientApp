@@ -1,5 +1,7 @@
 package com.romazzz.gmclient.ui.login;
 
+import android.util.Log;
+
 import java.lang.ref.WeakReference;
 
 /**
@@ -21,6 +23,7 @@ public class LoginPresenter implements ILoginPresenter {
 
     @Override
     public void tryToLogin() {
+        Log.d("LoginPresenter", "TRY TO LOGIN");
         if(mView.get()!=null)
             mView.get().showProgress();
     }

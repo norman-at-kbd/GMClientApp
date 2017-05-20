@@ -39,11 +39,6 @@ public class LoginView extends BaseActivity implements ILoginView {
         ButterKnife.bind(this);
     }
 
-    @OnClick(R.id.login_btn)
-    public void loginBtnClick() {
-        Log.d("LoginView", "LOGIN BUTTON CLICKED");
-    }
-
     @Override
     public void showProgress() {
 
@@ -59,6 +54,7 @@ public class LoginView extends BaseActivity implements ILoginView {
 
     }
 
+    @OnClick(R.id.login_btn)
     @Override
     public void loginPressed() {
         mPresenter.tryToLogin();
