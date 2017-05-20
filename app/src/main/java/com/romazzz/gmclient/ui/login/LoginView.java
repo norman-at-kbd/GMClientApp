@@ -26,6 +26,7 @@ public class LoginView extends BaseActivity implements ILoginView {
         super.onCreate(savedInstanceState);
         mViewComponent.inject(this);
         setContentView(R.layout.login_view);
+        mPresenter.onAttach(this);
     }
 
     @Override
