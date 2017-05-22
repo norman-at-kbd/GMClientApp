@@ -34,6 +34,6 @@ public class RoboelectricLoginViewTest {
     public void exampleTest() throws Exception{
         Button button = (Button) loginView.findViewById(R.id.login_btn);
         String buttonText = button.getText().toString();
-        assertEquals(buttonText, "LOGIN");
+        assertEquals(buttonText, "Login");
     }
 }
