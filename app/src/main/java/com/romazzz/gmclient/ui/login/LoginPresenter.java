@@ -2,6 +2,8 @@ package com.romazzz.gmclient.ui.login;
 
 import android.util.Log;
 
+import com.romazzz.gmclient.domain.IMessageListInteractor;
+
 import java.lang.ref.WeakReference;
 
 /**
@@ -9,6 +11,8 @@ import java.lang.ref.WeakReference;
  */
 
 public class LoginPresenter implements ILoginPresenter {
+    IMessageListInteractor listInteractor;
+
     WeakReference<ILoginView> mView;
 
     @Override
