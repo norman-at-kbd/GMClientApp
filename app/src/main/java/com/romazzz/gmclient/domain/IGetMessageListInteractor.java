@@ -10,6 +10,6 @@ import rx.Observable;
  * Created by z01tan on 5/22/17.
  */
 
-public interface IMessageListInteractor {
+public interface IGetMessageListInteractor {
     Observable<List<IMessage>> getMessagesList();
 }
