@@ -2,7 +2,7 @@ package com.romazzz.gmclient.domain;
 
 import com.romazzz.gmclient.mailclient.IMessage;
 
-import java.util.List;
+import java.util.Collection;
 
 import rx.Observable;
 
@@ -11,5 +11,5 @@ import rx.Observable;
  */
 
 public interface IGetMessageListInteractor {
-    Observable<List<IMessage>> getMessagesList();
+    Observable<Collection<IMessage>> getMessagesList();
 }
