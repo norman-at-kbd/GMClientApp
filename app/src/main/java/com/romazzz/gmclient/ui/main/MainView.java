@@ -1,13 +1,13 @@
-package com.romazzz.gmclient.ui.login;
+package com.romazzz.gmclient.ui.main;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Button;
 
 import com.romazzz.gmclient.R;
 import com.romazzz.gmclient.ui.BaseActivity;
+import com.romazzz.gmclient.ui.main.IMainPresenter;
+import com.romazzz.gmclient.ui.main.IMainView;
 
 import javax.inject.Inject;
 
@@ -19,14 +19,14 @@ import butterknife.OnClick;
  * Created by z01tan on 5/16/17.
  */
 
-public class LoginView extends BaseActivity implements ILoginView {
+public class MainView extends BaseActivity implements IMainView {
     @Inject
-    ILoginPresenter mPresenter;
+    IMainPresenter mPresenter;
 
     @Bind(R.id.login_btn)
     Button loginBtn;
 
-    public LoginView() {
+    public MainView() {
         super();
     }
 

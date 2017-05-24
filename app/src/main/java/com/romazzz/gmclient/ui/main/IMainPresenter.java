@@ -1,4 +1,4 @@
-package com.romazzz.gmclient.ui.login;
+package com.romazzz.gmclient.ui.main;
 
 import com.romazzz.gmclient.ui.IMVPPresenter;
 
@@ -6,7 +6,7 @@ import com.romazzz.gmclient.ui.IMVPPresenter;
  * Created by z01tan on 5/16/17.
  */
 
-public interface ILoginPresenter extends IMVPPresenter <ILoginView> {
+public interface IMainPresenter extends IMVPPresenter <IMainView> {
     void tryToLogin();
     void onLoginSuccess();
     void onLoginError();

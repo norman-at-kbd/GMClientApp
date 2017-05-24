@@ -3,6 +3,9 @@ package com.romazzz.gmclient.ui.login;
 import com.romazzz.gmclient.di.component.DaggerViewComponent;
 import com.romazzz.gmclient.di.component.ViewComponent;
 import com.romazzz.gmclient.di.module.ViewModule;
+import com.romazzz.gmclient.ui.main.IMainPresenter;
+import com.romazzz.gmclient.ui.main.MainPresenter;
+import com.romazzz.gmclient.ui.main.MainView;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,54 +20,54 @@ import static org.mockito.Mockito.verify;
  */
 
 @RunWith(MockitoJUnitRunner.class)
-public class LoginPresenterTest {
+public class MainPresenterTest {
     @Mock
-    LoginView mockLoginView;
+    MainView mockMainView;
     @Mock
-    LoginPresenter mockLoginPresenter;
-    LoginView loginView;
-    LoginPresenter loginPresenter;
+    com.romazzz.gmclient.ui.main.MainPresenter mockMainPresenter;
+    MainView mainView;
+    MainPresenter MainPresenter;
 
     @Before
     public void init(){
         MockitoAnnotations.initMocks(this);
-        loginPresenter = new LoginPresenter();
-        loginPresenter.onAttach(mockLoginView);
+        MainPresenter = new MainPresenter();
+        MainPresenter.onAttach(mockMainView);
 
         ViewComponent viewComponent = DaggerViewComponent.builder().viewModule(new ViewModule() {
             @Override
-            protected ILoginPresenter getLoginPresenter(){
-                return mockLoginPresenter;
+            protected IMainPresenter getMainPresenter(){
+                return mockMainPresenter;
             }
         }).build();
 
-        loginView = new LoginView();
-        viewComponent.inject(loginView);
+        mainView = new MainView();
+        viewComponent.inject(mainView);
     }
 
     @Test
     public void presenterStartLoginTest() {
-        loginPresenter.tryToLogin();
-        verify(mockLoginView).showProgress();
+        MainPresenter.tryToLogin();
+        verify(mockMainView).showProgress();
     }
 
     @Test
     public void  presenterLoginSuccesTest() {
-        loginPresenter.onLoginError();
-        verify(mockLoginView).hideProgress();
-        verify(mockLoginView).showLoginError();
+        MainPresenter.onLoginError();
+        verify(mockMainView).hideProgress();
+        verify(mockMainView).showLoginError();
     }
 
     @Test
     public void presenterLoginErrorTest() {
-        loginPresenter.onLoginSuccess();
-        verify(mockLoginView).hideProgress();
-        verify(mockLoginView).onLoginSuccess();
+        MainPresenter.onLoginSuccess();
+        verify(mockMainView).hideProgress();
+        verify(mockMainView).onLoginSuccess();
     }
 
     @Test
     public void viewLoginClickTest() {
-        loginView.loginPressed();
-        verify(mockLoginPresenter).tryToLogin();
+        mainView.loginPressed();
+        verify(mockMainPresenter).tryToLogin();
     }
 }

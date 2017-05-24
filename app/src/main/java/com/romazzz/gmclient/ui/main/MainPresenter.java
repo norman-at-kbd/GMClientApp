@@ -1,9 +1,11 @@
-package com.romazzz.gmclient.ui.login;
+package com.romazzz.gmclient.ui.main;
 
 import android.util.Log;
 
 import com.romazzz.gmclient.domain.IGetMessageListInteractor;
 import com.romazzz.gmclient.mailclient.IMessage;
+import com.romazzz.gmclient.ui.main.IMainPresenter;
+import com.romazzz.gmclient.ui.main.IMainView;
 
 import java.lang.ref.WeakReference;
 import java.util.Collection;
@@ -14,13 +16,13 @@ import rx.Observer;
  * Created by z01tan on 5/16/17.
  */
 
-public class LoginPresenter implements ILoginPresenter {
+public class MainPresenter implements IMainPresenter {
     IGetMessageListInteractor listInteractor;
 
-    WeakReference<ILoginView> mView;
+    WeakReference<IMainView> mView;
 
     @Override
-    public void onAttach(ILoginView view) {
+    public void onAttach(IMainView view) {
         mView = new WeakReference<>(view);
     }
 
@@ -31,7 +33,7 @@ public class LoginPresenter implements ILoginPresenter {
 
     @Override
     public void tryToLogin() {
-        Log.d("LoginPresenter", "TRY TO LOGIN");
+        Log.d("MainPresenter", "TRY TO LOGIN");
         if(mView.get()!=null)
             mView.get().showProgress();
     }

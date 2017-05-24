@@ -4,6 +4,7 @@ import android.widget.Button;
 
 import com.romazzz.gmclient.BuildConfig;
 import com.romazzz.gmclient.R;
+import com.romazzz.gmclient.ui.main.MainView;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,12 +20,12 @@ import static org.junit.Assert.*;
  */
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class RoboelectricLoginViewTest {
-    private LoginView loginView;
+public class RoboelectricMainViewTest {
+    private MainView MainView;
 
     @Before
     public void setUp() throws Exception {
-        loginView = Robolectric.buildActivity(LoginView.class).
+        MainView = Robolectric.buildActivity(com.romazzz.gmclient.ui.main.MainView.class).
                 create().
                 resume().
                 get();
@@ -32,7 +33,7 @@ public class RoboelectricLoginViewTest {
 
     @Test
     public void exampleTest() throws Exception{
-        Button button = (Button) loginView.findViewById(R.id.login_btn);
+        Button button = (Button) MainView.findViewById(R.id.login_btn);
         String buttonText = button.getText().toString();
         assertEquals(buttonText, "Login");
     }

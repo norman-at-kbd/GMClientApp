@@ -1,8 +1,8 @@
 package com.romazzz.gmclient.di.module;
 
 import com.romazzz.gmclient.di.PerViewScope;
-import com.romazzz.gmclient.ui.login.ILoginPresenter;
-import com.romazzz.gmclient.ui.login.LoginPresenter;
+import com.romazzz.gmclient.ui.main.IMainPresenter;
+import com.romazzz.gmclient.ui.main.MainPresenter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -15,7 +15,7 @@ import dagger.Provides;
 public class ViewModule {
     @Provides
     @PerViewScope
-    protected ILoginPresenter getLoginPresenter() {
-        return new LoginPresenter();
+    protected IMainPresenter getMainPresenter() {
+        return new MainPresenter();
     }
 }

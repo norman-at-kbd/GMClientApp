@@ -2,8 +2,7 @@ package com.romazzz.gmclient.di.component;
 
 import com.romazzz.gmclient.di.PerViewScope;
 import com.romazzz.gmclient.di.module.ViewModule;
-import com.romazzz.gmclient.ui.login.ILoginView;
-import com.romazzz.gmclient.ui.login.LoginView;
+import com.romazzz.gmclient.ui.main.MainView;
 
 import dagger.Component;
 
@@ -13,5 +12,5 @@ import dagger.Component;
 @PerViewScope
 @Component(modules = {ViewModule.class})
 public interface ViewComponent {
-    void inject(LoginView view);
+    void inject(MainView view);
 }
