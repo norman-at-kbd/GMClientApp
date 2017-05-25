@@ -4,8 +4,6 @@ import android.util.Log;
 
 import com.romazzz.gmclient.domain.IGetMessageListInteractor;
 import com.romazzz.gmclient.mailclient.IMessage;
-import com.romazzz.gmclient.ui.main.IMainPresenter;
-import com.romazzz.gmclient.ui.main.IMainView;
 
 import java.lang.ref.WeakReference;
 import java.util.Collection;
@@ -50,14 +48,22 @@ public class MainPresenter implements IMainPresenter {
     public void onLoginError() {
         if(mView.get()!=null) {
             mView.get().hideProgress();
-            mView.get().showLoginError();
+            mView.get().showError();
         }
     }
+
+    @Override
+    public void requestMessages() {
+
+    }
+
+
 
     class GetMessageObserver implements Observer<Collection<IMessage>> {
         @Override
         public void onCompleted() {
-
+            if(MainPresenter.this.mView.get()!=null)
+                MainPresenter.this.mView.get().hideProgress();
         }
 
         @Override
@@ -67,7 +73,8 @@ public class MainPresenter implements IMainPresenter {
 
         @Override
         public void onNext(Collection<IMessage> iMessages) {
-
+            if(MainPresenter.this.mView.get()!=null)
+                MainPresenter.this.mView.get().showMessages(iMessages);
         }
     }
 }
