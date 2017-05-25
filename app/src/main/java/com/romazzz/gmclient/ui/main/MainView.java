@@ -5,9 +5,10 @@ import android.support.annotation.Nullable;
 import android.widget.Button;
 
 import com.romazzz.gmclient.R;
+import com.romazzz.gmclient.mailclient.IMessage;
 import com.romazzz.gmclient.ui.BaseActivity;
-import com.romazzz.gmclient.ui.main.IMainPresenter;
-import com.romazzz.gmclient.ui.main.IMainView;
+
+import java.util.Collection;
 
 import javax.inject.Inject;
 
@@ -54,6 +55,11 @@ public class MainView extends BaseActivity implements IMainView {
 
     }
 
+    @Override
+    public void showMessages(Collection<IMessage> messages) {
+
+    }
+
     @OnClick(R.id.login_btn)
     @Override
     public void loginPressed() {
@@ -61,7 +67,7 @@ public class MainView extends BaseActivity implements IMainView {
     }
 
     @Override
-    public void showLoginError() {
+    public void showError(Throwable error) {
 
     }
 
