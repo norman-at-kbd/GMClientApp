@@ -10,4 +10,5 @@ public interface IMainPresenter extends IMVPPresenter <IMainView> {
     void tryToLogin();
     void onLoginSuccess();
     void onLoginError();
+    void requestMessages();
 }
