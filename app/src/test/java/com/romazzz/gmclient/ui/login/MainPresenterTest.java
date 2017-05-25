@@ -55,7 +55,7 @@ public class MainPresenterTest {
     public void  presenterLoginSuccesTest() {
         MainPresenter.onLoginError();
         verify(mockMainView).hideProgress();
-        verify(mockMainView).showLoginError();
+        verify(mockMainView).showError();
     }
 
     @Test
