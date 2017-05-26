@@ -45,7 +45,7 @@ public class MainPresenter implements IMainPresenter {
     }
 
     @Override
-    public void onLoginError() {
+    public void onLoginError(Throwable throwable) {
         if(mView.get()!=null) {
             mView.get().hideProgress();
             mView.get().showError();

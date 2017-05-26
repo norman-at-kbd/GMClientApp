@@ -9,6 +9,6 @@ import com.romazzz.gmclient.ui.IMVPPresenter;
 public interface IMainPresenter extends IMVPPresenter <IMainView> {
     void tryToLogin();
     void onLoginSuccess();
-    void onLoginError();
+    void onLoginError(Throwable throwable);
     void requestMessages();
 }
