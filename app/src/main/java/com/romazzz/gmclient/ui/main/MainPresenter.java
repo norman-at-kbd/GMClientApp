@@ -39,7 +39,7 @@ public class MainPresenter implements IMainPresenter {
     @Override
     public void onLoginSuccess() {
         if(mView.get()!=null) {
-            mView.get().onLoginSuccess();
+//            mView.get().onLoginSuccess(); TODO if everything is ok have to  show messages
             mView.get().hideProgress();
         }
     }
@@ -48,7 +48,7 @@ public class MainPresenter implements IMainPresenter {
     public void onLoginError(Throwable throwable) {
         if(mView.get()!=null) {
             mView.get().hideProgress();
-            mView.get().showError();
+//            mView.get().showError(); TODO select proper error view for specific throwable
         }
     }
 
