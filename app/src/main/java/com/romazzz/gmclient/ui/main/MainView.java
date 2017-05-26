@@ -67,12 +67,17 @@ public class MainView extends BaseActivity implements IMainView {
     }
 
     @Override
-    public void showError(Throwable error) {
+    public void showLoginError() {
 
     }
 
     @Override
-    public void onLoginSuccess() {
+    public void showPermissionRequest() {
+
+    }
+
+    @Override
+    public void showAccountSelection() {
 
     }
 }

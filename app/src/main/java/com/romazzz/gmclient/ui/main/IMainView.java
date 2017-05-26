@@ -11,7 +11,8 @@ import java.util.Collection;
 
 public interface IMainView extends IMVPView {
     void loginPressed();
-    void showError(Throwable error);
-    void onLoginSuccess();
+    void showLoginError();
+    void showPermissionRequest();
+    void showAccountSelection();
     void showMessages(Collection<IMessage> messages);
 }
