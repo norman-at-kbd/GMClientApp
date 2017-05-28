@@ -30,25 +30,23 @@ public class MainPresenter implements IMainPresenter {
     }
 
     @Override
-    public void tryToLogin() {
+    public void getCredentials() {
         Log.d("MainPresenter", "TRY TO LOGIN");
         if(mView.get()!=null)
             mView.get().showProgress();
     }
 
     @Override
-    public void onLoginSuccess() {
-        if(mView.get()!=null) {
-//            mView.get().onLoginSuccess(); TODO if everything is ok have to  show messages
-            mView.get().hideProgress();
-        }
+    public void onGetCredentialsSuccess() {
+        this.requestMessages();
     }
 
     @Override
-    public void onLoginError(Throwable throwable) {
+    public void onGetCredentialsError(Throwable throwable) {
         if(mView.get()!=null) {
             mView.get().hideProgress();
-//            mView.get().showError(); TODO select proper error view for specific throwable
+            mView.get().showLoginError();
+//          TODO select proper error view for specific throwable
         }
     }
 
@@ -56,8 +54,6 @@ public class MainPresenter implements IMainPresenter {
     public void requestMessages() {
 
     }
-
-
 
     class GetMessageObserver implements Observer<Collection<IMessage>> {
         @Override

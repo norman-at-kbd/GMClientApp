@@ -47,20 +47,20 @@ public class MainPresenterTest {
 
     @Test
     public void presenterStartLoginTest() {
-        MainPresenter.tryToLogin();
+        MainPresenter.getCredentials();
         verify(mockMainView).showProgress();
     }
 
     @Test
     public void  presenterLoginSuccesTest() {
-        MainPresenter.onLoginError();
+        MainPresenter.onGetCredentialsError();
         verify(mockMainView).hideProgress();
         verify(mockMainView).showError();
     }
 
     @Test
     public void presenterLoginErrorTest() {
-        MainPresenter.onLoginSuccess();
+        MainPresenter.onGetCredentialsSuccess();
         verify(mockMainView).hideProgress();
         verify(mockMainView).onLoginSuccess();
     }
@@ -68,6 +68,6 @@ public class MainPresenterTest {
     @Test
     public void viewLoginClickTest() {
         mainView.loginPressed();
-        verify(mockMainPresenter).tryToLogin();
+        verify(mockMainPresenter).getCredentials();
     }
 }

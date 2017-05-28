@@ -63,7 +63,7 @@ public class MainView extends BaseActivity implements IMainView {
     @OnClick(R.id.login_btn)
     @Override
     public void loginPressed() {
-        mPresenter.tryToLogin();
+        mPresenter.getCredentials();
     }
 
     @Override
