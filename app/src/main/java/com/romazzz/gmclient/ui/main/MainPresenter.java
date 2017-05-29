@@ -31,7 +31,6 @@ public class MainPresenter implements IMainPresenter {
 
     @Override
     public void getCredentials() {
-        Log.d("MainPresenter", "TRY TO LOGIN");
         if(mView.get()!=null)
             mView.get().showProgress();
     }
