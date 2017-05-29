@@ -52,12 +52,6 @@ public class MainPresenterTest {
     }
 
     @Test
-    public void  presenterLoginSuccesTest() {
-        MainPresenter.onGetCredentialsSuccess();
-        verify(mockMainView).hideProgress();
-    }
-
-    @Test
     public void presenterLoginErrorTest() {
         MainPresenter.onGetCredentialsError(new Throwable());
         verify(mockMainView).hideProgress();
