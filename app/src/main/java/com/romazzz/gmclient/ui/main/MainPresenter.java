@@ -51,6 +51,16 @@ public class MainPresenter implements IMainPresenter {
     }
 
     @Override
+    public void onRequestMessagesError(Throwable throwable) {
+
+    }
+
+    @Override
+    public void onRequestMessagesSuccess() {
+
+    }
+
+    @Override
     public void requestMessages() {
 
     }
