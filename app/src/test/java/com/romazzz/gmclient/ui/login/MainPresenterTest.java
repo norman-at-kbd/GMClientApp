@@ -3,6 +3,7 @@ package com.romazzz.gmclient.ui.login;
 import com.romazzz.gmclient.di.component.DaggerViewComponent;
 import com.romazzz.gmclient.di.component.ViewComponent;
 import com.romazzz.gmclient.di.module.ViewModule;
+import com.romazzz.gmclient.mailclient.IMessage;
 import com.romazzz.gmclient.ui.main.IMainPresenter;
 import com.romazzz.gmclient.ui.main.MainPresenter;
 import com.romazzz.gmclient.ui.main.MainView;
@@ -13,6 +14,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.ArrayList;
 
 import static org.mockito.Mockito.verify;
 /**
@@ -56,6 +59,14 @@ public class MainPresenterTest {
         MainPresenter.onGetCredentialsError(new Throwable());
         verify(mockMainView).hideProgress();
         verify(mockMainView).showLoginError();
+    }
+
+    @Test
+    public void presenterOnRequestMessagesSuccess() {
+        ArrayList<IMessage> messages = new ArrayList<>();
+        MainPresenter.onRequestMessagesSuccess(messages);
+        verify(mockMainView).hideProgress();
+        verify(mockMainView).showMessages(messages);
     }
 
     @Test
