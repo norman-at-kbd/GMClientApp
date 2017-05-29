@@ -53,16 +53,15 @@ public class MainPresenterTest {
 
     @Test
     public void  presenterLoginSuccesTest() {
-        MainPresenter.onGetCredentialsError();
+        MainPresenter.onGetCredentialsSuccess();
         verify(mockMainView).hideProgress();
-        verify(mockMainView).showError();
     }
 
     @Test
     public void presenterLoginErrorTest() {
-        MainPresenter.onGetCredentialsSuccess();
+        MainPresenter.onGetCredentialsError(new Throwable());
         verify(mockMainView).hideProgress();
-        verify(mockMainView).onLoginSuccess();
+        verify(mockMainView).showLoginError();
     }
 
     @Test
