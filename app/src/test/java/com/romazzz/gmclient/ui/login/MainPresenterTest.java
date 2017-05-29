@@ -1,8 +1,11 @@
 package com.romazzz.gmclient.ui.login;
 
+import com.romazzz.gmclient.di.component.AppComponent;
+import com.romazzz.gmclient.di.component.DaggerAppComponent;
 import com.romazzz.gmclient.di.component.DaggerViewComponent;
 import com.romazzz.gmclient.di.component.ViewComponent;
 import com.romazzz.gmclient.di.module.ViewModule;
+import com.romazzz.gmclient.mailclient.CredentialsProvider;
 import com.romazzz.gmclient.mailclient.IMessage;
 import com.romazzz.gmclient.ui.main.IMainPresenter;
 import com.romazzz.gmclient.ui.main.MainPresenter;
@@ -28,6 +31,9 @@ public class MainPresenterTest {
     MainView mockMainView;
     @Mock
     com.romazzz.gmclient.ui.main.MainPresenter mockMainPresenter;
+//    @Mock
+//    CredentialsProvider credentialsProvider;
+//
     MainView mainView;
     MainPresenter MainPresenter;
 
@@ -43,20 +49,13 @@ public class MainPresenterTest {
                 return mockMainPresenter;
             }
         }).build();
-
         mainView = new MainView();
         viewComponent.inject(mainView);
     }
 
     @Test
-    public void presenterStartLoginTest() {
-        MainPresenter.getCredentials();
-        verify(mockMainView).showProgress();
-    }
-
-    @Test
     public void presenterLoginErrorTest() {
-        MainPresenter.onGetCredentialsError(new Throwable());
+        MainPresenter.onRequestMessagesError(new Throwable());
         verify(mockMainView).hideProgress();
         verify(mockMainView).showLoginError();
     }
@@ -72,6 +71,6 @@ public class MainPresenterTest {
     @Test
     public void viewLoginClickTest() {
         mainView.loginPressed();
-        verify(mockMainPresenter).getCredentials();
+        verify(mockMainPresenter).requestMessages();
     }
 }

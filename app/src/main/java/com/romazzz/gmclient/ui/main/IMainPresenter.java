@@ -10,9 +10,6 @@ import java.util.Collection;
  */
 
 public interface IMainPresenter extends IMVPPresenter <IMainView> {
-    void getCredentials();
-    void onGetCredentialsSuccess();
-    void onGetCredentialsError(Throwable throwable);
     void requestMessages();
     void onRequestMessagesError(Throwable throwable);
     void onRequestMessagesSuccess(Collection<IMessage> messages);
