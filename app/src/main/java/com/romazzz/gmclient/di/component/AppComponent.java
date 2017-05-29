@@ -2,6 +2,7 @@ package com.romazzz.gmclient.di.component;
 
 import com.romazzz.gmclient.di.PerAppScope;
 import com.romazzz.gmclient.di.module.AppModule;
+import com.romazzz.gmclient.ui.main.MainPresenter;
 
 import dagger.Component;
 
@@ -11,5 +12,5 @@ import dagger.Component;
 
 @Component(modules = {AppModule.class})
 public interface AppComponent {
-    void inject();
+    void inject(MainPresenter mainPresenter);
 }
