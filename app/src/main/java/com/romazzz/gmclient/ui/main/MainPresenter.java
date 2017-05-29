@@ -55,8 +55,11 @@ public class MainPresenter implements IMainPresenter {
     }
 
     @Override
-    public void onRequestMessagesSuccess() {
-
+    public void onRequestMessagesSuccess(Collection<IMessage> messages) {
+        if(mView.get()!=null) {
+            mView.get().hideProgress();
+            mView.get().showMessages(messages);
+        }
     }
 
     @Override
