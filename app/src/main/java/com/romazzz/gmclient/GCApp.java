@@ -11,13 +11,13 @@ public class GCApp extends Application {
     private static GCApp APP;
     private GCApp() {}
 
-    public GCApp getInstance() {
+    public static GCApp getInstance() {
         if(APP == null)
             APP = new GCApp();
         return APP;
     }
 
-    public Context getAppContext() {
+    public static Context getAppContext() {
         return getInstance();
     }
 }
