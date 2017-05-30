@@ -1,10 +1,6 @@
 package com.romazzz.gmclient.ui.main;
 
-import android.util.Log;
-
 import com.romazzz.gmclient.domain.IGetMessageListInteractor;
-import com.romazzz.gmclient.mailclient.CredentialsProvider;
-import com.romazzz.gmclient.mailclient.ICredentialsProvider;
 import com.romazzz.gmclient.mailclient.IMessage;
 
 import java.lang.ref.WeakReference;
@@ -22,6 +18,9 @@ public class MainPresenter implements IMainPresenter {
     IGetMessageListInteractor listInteractor;
 
     WeakReference<IMainView> mView;
+
+    @Inject
+    IGetMessageListInteractor getMessageListInteractor;
 
     @Override
     public void onAttach(IMainView view) {
@@ -51,7 +50,7 @@ public class MainPresenter implements IMainPresenter {
 
     @Override
     public void requestMessages() {
-
+        getMessageListInteractor.getMessagesList().subscribe(new GetMessageObserver());
     }
 
     class GetMessageObserver implements Observer<Collection<IMessage>> {
