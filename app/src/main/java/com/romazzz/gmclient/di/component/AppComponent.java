@@ -11,6 +11,7 @@ import dagger.Component;
  */
 
 @Component(modules = {AppModule.class})
+@PerAppScope
 public interface AppComponent {
     void inject(MainPresenter mainPresenter);
 }
