@@ -4,11 +4,16 @@ import android.content.Context;
 
 import com.romazzz.gmclient.GCApp;
 import com.romazzz.gmclient.di.PerAppScope;
+import com.romazzz.gmclient.domain.IGetMessageListInteractor;
 import com.romazzz.gmclient.mailclient.CredentialsProvider;
 import com.romazzz.gmclient.mailclient.ICredentialsProvider;
+import com.romazzz.gmclient.mailclient.IMessage;
+
+import java.util.Collection;
 
 import dagger.Module;
 import dagger.Provides;
+import rx.Observable;
 
 /**
  * Created by z01tan on 5/29/17.
@@ -27,5 +32,16 @@ public class AppModule {
     @PerAppScope
     ICredentialsProvider provideCredentialsProvider(Context context) {
         return new CredentialsProvider(context);
+    }
+
+    @Provides
+    @PerAppScope
+    IGetMessageListInteractor provideGetMessageInteractor() {
+        return new IGetMessageListInteractor() {
+            @Override
+            public Observable<Collection<IMessage>> getMessagesList() {
+                return null;
+            }
+        };
     }
 }
