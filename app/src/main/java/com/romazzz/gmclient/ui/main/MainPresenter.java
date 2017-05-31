@@ -9,14 +9,14 @@ import java.util.Collection;
 import javax.inject.Inject;
 
 import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by z01tan on 5/16/17.
  */
 
 public class MainPresenter implements IMainPresenter {
-    IGetMessageListInteractor listInteractor;
-
     WeakReference<IMainView> mView;
 
     @Inject
@@ -50,7 +50,10 @@ public class MainPresenter implements IMainPresenter {
 
     @Override
     public void requestMessages() {
-        getMessageListInteractor.getMessagesList().subscribe(new GetMessageObserver());
+        getMessageListInteractor.getMessagesList().
+                observeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new GetMessageObserver());
     }
 
     class GetMessageObserver implements Observer<Collection<IMessage>> {
@@ -62,13 +65,12 @@ public class MainPresenter implements IMainPresenter {
 
         @Override
         public void onError(Throwable e) {
-
+            MainPresenter.this.onRequestMessagesError(e);
         }
 
         @Override
         public void onNext(Collection<IMessage> iMessages) {
-            if(MainPresenter.this.mView.get()!=null)
-                MainPresenter.this.mView.get().showMessages(iMessages);
+            MainPresenter.this.onRequestMessagesSuccess(iMessages);
         }
     }
 }
