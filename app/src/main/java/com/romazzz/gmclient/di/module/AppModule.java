@@ -30,12 +30,14 @@ public class AppModule {
 
     @Provides
     @PerAppScope
+    protected
     ICredentialsProvider provideCredentialsProvider(Context context) {
         return new CredentialsProvider(context);
     }
 
     @Provides
     @PerAppScope
+    protected
     IGetMessageListInteractor provideGetMessageInteractor() {
         return new IGetMessageListInteractor() {
             @Override
