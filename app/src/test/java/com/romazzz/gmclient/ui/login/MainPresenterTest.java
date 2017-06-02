@@ -4,8 +4,10 @@ import com.romazzz.gmclient.di.component.AppComponent;
 import com.romazzz.gmclient.di.component.DaggerAppComponent;
 import com.romazzz.gmclient.di.component.DaggerViewComponent;
 import com.romazzz.gmclient.di.component.ViewComponent;
+import com.romazzz.gmclient.di.module.AppModule;
 import com.romazzz.gmclient.di.module.ViewModule;
-import com.romazzz.gmclient.mailclient.CredentialsProvider;
+import com.romazzz.gmclient.domain.IGetMessageListInteractor;
+import com.romazzz.gmclient.domain.TestGetMessageInteractor;
 import com.romazzz.gmclient.mailclient.IMessage;
 import com.romazzz.gmclient.ui.main.IMainPresenter;
 import com.romazzz.gmclient.ui.main.MainPresenter;
@@ -31,6 +33,9 @@ public class MainPresenterTest {
     MainView mockMainView;
     @Mock
     com.romazzz.gmclient.ui.main.MainPresenter mockMainPresenter;
+    @Mock
+    IGetMessageListInteractor mockGetMessagesInteractor;
+
 //    @Mock
 //    CredentialsProvider credentialsProvider;
 //
@@ -51,6 +56,13 @@ public class MainPresenterTest {
         }).build();
         mainView = new MainView();
         viewComponent.inject(mainView);
+        AppComponent appComponent = DaggerAppComponent.builder().appModule(new AppModule() {
+            @Override
+            protected IGetMessageListInteractor provideGetMessageInteractor() {
+                return new TestGetMessageInteractor();
+            }
+        }).build();
+        appComponent.inject(MainPresenter);
     }
 
     @Test
@@ -72,5 +84,10 @@ public class MainPresenterTest {
     public void viewLoginClickTest() {
         mainView.loginPressed();
         verify(mockMainPresenter).requestMessages();
+    }
+
+    @Test
+    public void presenterRequestMessagesTest() {
+        MainPresenter.requestMessages();
     }
 }
