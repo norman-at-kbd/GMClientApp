@@ -1,6 +1,7 @@
 package com.romazzz.gmclient.domain;
 
 import com.romazzz.gmclient.mailclient.IMessage;
+import com.romazzz.gmclient.mailclient.TestMessageBuilder;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,43 +21,9 @@ public class TestGetMessageInteractor implements IGetMessageListInteractor {
         return Observable.create(new Observable.OnSubscribe<Collection<IMessage>>() {
             @Override
             public void call(Subscriber<? super Collection<IMessage>> subscriber) {
-                List<IMessage> messages = new ArrayList<>();
-                messages.add(new IMessage() {
-                    @Override
-                    public boolean isSent() {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean isUnread() {
-                        return false;
-                    }
-
-                    @Override
-                    public String getID() {
-                        return null;
-                    }
-
-                    @Override
-                    public String getFrom() {
-                        return null;
-                    }
-
-                    @Override
-                    public String getTo() {
-                        return null;
-                    }
-
-                    @Override
-                    public String getSubject() {
-                        return null;
-                    }
-
-                    @Override
-                    public String getText() {
-                        return null;
-                    }
-                });
+                TestMessageBuilder builder = new TestMessageBuilder();
+                subscriber.onNext(builder.getMessageList(5));
+                subscriber.onCompleted();
             }
         });
 
