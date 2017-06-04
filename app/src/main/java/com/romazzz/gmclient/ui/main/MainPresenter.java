@@ -1,6 +1,13 @@
 package com.romazzz.gmclient.ui.main;
 
+import android.Manifest;
+import android.accounts.AccountManager;
+import android.content.Intent;
+import android.util.Log;
+
+import com.romazzz.gmclient.GCApp;
 import com.romazzz.gmclient.domain.IGetMessageListInteractor;
+import com.romazzz.gmclient.mailclient.ICredentialsProvider;
 import com.romazzz.gmclient.mailclient.IMessage;
 
 import java.lang.ref.WeakReference;
@@ -8,9 +15,13 @@ import java.util.Collection;
 
 import javax.inject.Inject;
 
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by z01tan on 5/16/17.
@@ -21,6 +32,9 @@ public class MainPresenter implements IMainPresenter {
 
     @Inject
     IGetMessageListInteractor getMessageListInteractor;
+
+    @Inject
+    ICredentialsProvider mCredentialsProvider;
 
     @Override
     public void onAttach(IMainView view) {
@@ -54,6 +68,40 @@ public class MainPresenter implements IMainPresenter {
                 observeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new GetMessageObserver());
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch(requestCode) {
+            case GCApp.REQUEST_GOOGLE_PLAY_SERVICES:
+                if (resultCode != RESULT_OK) {
+//                    mView.get().showOutputText(
+//                            "This app requires Google Play Services. Please install " +
+//                                    "Google Play Services on your device and relaunch this app.");
+                    //TODO make some mechanism to show warnings and errors in mainview
+                    Log.d("MainPresenterTag", "REQUEST_GOOGLE_PLAY_SERVICES RESULT != OK");
+                } else {
+                    requestMessages();
+                }
+                break;
+            case GCApp.REQUEST_ACCOUNT_PICKER:
+                if (resultCode == RESULT_OK && data != null &&
+                        data.getExtras() != null) {
+                    String accountName =
+                            data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
+                    if (accountName != null) {
+                        mCredentialsProvider.setAccountName(accountName);
+                        requestMessages();
+                    }
+                }
+                break;
+            case GCApp.REQUEST_AUTHORIZATION:
+                if (resultCode == RESULT_OK) {
+                    requestMessages();
+                }
+                break;
+        }
     }
 
     class GetMessageObserver implements Observer<Collection<IMessage>> {
