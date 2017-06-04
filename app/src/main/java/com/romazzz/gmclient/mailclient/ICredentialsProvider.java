@@ -8,4 +8,6 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccoun
 
 public interface ICredentialsProvider {
     GoogleAccountCredential getCredentials();
+    String getAccountName();
+    void setAccountName(String name);
 }
