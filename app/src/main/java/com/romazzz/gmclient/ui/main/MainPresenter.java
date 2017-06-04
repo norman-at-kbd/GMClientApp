@@ -5,6 +5,7 @@ import android.accounts.AccountManager;
 import android.content.Intent;
 import android.util.Log;
 
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.romazzz.gmclient.GCApp;
 import com.romazzz.gmclient.domain.IGetMessageListInteractor;
 import com.romazzz.gmclient.mailclient.ICredentialsProvider;
@@ -128,6 +129,16 @@ public class MainPresenter implements IMainPresenter {
                     requestMessages();
                 }
                 break;
+        }
+    }
+
+    private void acquireGooglePlayServices() {
+        GoogleApiAvailability apiAvailability =
+                GoogleApiAvailability.getInstance();
+        final int connectionStatusCode =
+                apiAvailability.isGooglePlayServicesAvailable(GCApp.getAppContext());
+        if (apiAvailability.isUserResolvableError(connectionStatusCode)) {
+            mView.get().showGooglePlayServicesAvailabilityErrorDialog(connectionStatusCode);
         }
     }
 
