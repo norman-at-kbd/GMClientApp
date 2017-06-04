@@ -71,6 +71,14 @@ public class MainPresenter implements IMainPresenter {
     }
 
 
+    private void requestPermissions() {
+        EasyPermissions.requestPermissions(
+                mView.get(),
+                "This app needs to access your Google account (via Contacts).",
+                GCApp.REQUEST_PERMISSION_GET_ACCOUNTS,
+                Manifest.permission.GET_ACCOUNTS);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch(requestCode) {
