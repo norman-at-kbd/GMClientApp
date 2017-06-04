@@ -5,6 +5,7 @@ import android.accounts.AccountManager;
 import android.content.Intent;
 import android.util.Log;
 
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.romazzz.gmclient.GCApp;
 import com.romazzz.gmclient.domain.IGetMessageListInteractor;
@@ -65,6 +66,7 @@ public class MainPresenter implements IMainPresenter {
 
     @Override
     public void requestMessages() {
+
         getMessageListInteractor.getMessagesList().
                 observeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
@@ -140,6 +142,14 @@ public class MainPresenter implements IMainPresenter {
         if (apiAvailability.isUserResolvableError(connectionStatusCode)) {
             mView.get().showGooglePlayServicesAvailabilityErrorDialog(connectionStatusCode);
         }
+    }
+
+    private boolean isGooglePlayServicesAvailable() {
+        GoogleApiAvailability apiAvailability =
+                GoogleApiAvailability.getInstance();
+        final int connectionStatusCode =
+                apiAvailability.isGooglePlayServicesAvailable(GCApp.getAppContext());
+        return connectionStatusCode == ConnectionResult.SUCCESS;
     }
 
     class GetMessageObserver implements Observer<Collection<IMessage>> {
