@@ -70,6 +70,25 @@ public class MainPresenter implements IMainPresenter {
                 subscribe(new GetMessageObserver());
     }
 
+    @AfterPermissionGranted(GCApp.REQUEST_PERMISSION_GET_ACCOUNTS)
+    public void chooseAccount() {
+        if (EasyPermissions.hasPermissions(
+                GCApp.getAppContext(), Manifest.permission.GET_ACCOUNTS)) {
+            String accountName = mCredentialsProvider.getAccountName();
+            if (accountName != null) {
+                mCredentialsProvider.getCredentials().setSelectedAccountName(accountName);
+                requestMessages();
+            } else {
+                // Start a dialog from which the user can choose an account
+                mView.get().startActivityForResult(
+                        mCredentialsProvider.getCredentials().newChooseAccountIntent(),
+                        GCApp.REQUEST_ACCOUNT_PICKER);
+            }
+        } else {
+            // Request the GET_ACCOUNTS permission via a user dialog
+            requestPermissions();
+        }
+    }
 
     private void requestPermissions() {
         EasyPermissions.requestPermissions(
