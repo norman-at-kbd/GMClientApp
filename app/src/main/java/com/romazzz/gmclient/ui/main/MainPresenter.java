@@ -66,11 +66,16 @@ public class MainPresenter implements IMainPresenter {
 
     @Override
     public void requestMessages() {
-
-        getMessageListInteractor.getMessagesList().
-                observeOn(Schedulers.io()).
-                observeOn(AndroidSchedulers.mainThread()).
-                subscribe(new GetMessageObserver());
+        if (! isGooglePlayServicesAvailable()) {
+            acquireGooglePlayServices();
+        } else if (mCredentialsProvider.getCredentials().getSelectedAccountName() == null) {
+            chooseAccount();
+        } else {
+            getMessageListInteractor.getMessagesList().
+                    observeOn(Schedulers.io()).
+                    observeOn(AndroidSchedulers.mainThread()).
+                    subscribe(new GetMessageObserver());
+        }
     }
 
     @AfterPermissionGranted(GCApp.REQUEST_PERMISSION_GET_ACCOUNTS)
