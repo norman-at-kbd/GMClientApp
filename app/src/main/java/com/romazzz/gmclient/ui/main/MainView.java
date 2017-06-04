@@ -87,7 +87,12 @@ public class MainView extends BaseActivity implements IMainView {
 
     @Override
     public void showGooglePlayServicesAvailabilityErrorDialog(int googleConnectionStatusCode) {
-
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        Dialog dialog = apiAvailability.getErrorDialog(
+                MainView.this,
+                googleConnectionStatusCode,
+                GCApp.REQUEST_GOOGLE_PLAY_SERVICES);
+        dialog.show();
     }
 
     @Override
