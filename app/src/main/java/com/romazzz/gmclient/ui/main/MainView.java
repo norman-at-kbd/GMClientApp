@@ -1,9 +1,13 @@
 package com.romazzz.gmclient.ui.main;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.Button;
 
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.romazzz.gmclient.GCApp;
 import com.romazzz.gmclient.R;
 import com.romazzz.gmclient.mailclient.IMessage;
 import com.romazzz.gmclient.ui.BaseActivity;
@@ -79,5 +83,15 @@ public class MainView extends BaseActivity implements IMainView {
     @Override
     public void showAccountSelection() {
 
+    }
+
+    @Override
+    public void showGooglePlayServicesAvailabilityErrorDialog(int googleConnectionStatusCode) {
+
+    }
+
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        super.startActivityForResult(intent, requestCode);
     }
 }
