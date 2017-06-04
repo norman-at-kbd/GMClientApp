@@ -1,5 +1,7 @@
 package com.romazzz.gmclient.ui.main;
 
+import android.content.Intent;
+
 import com.romazzz.gmclient.mailclient.IMessage;
 import com.romazzz.gmclient.ui.IMVPPresenter;
 
@@ -13,4 +15,5 @@ public interface IMainPresenter extends IMVPPresenter <IMainView> {
     void requestMessages();
     void onRequestMessagesError(Throwable throwable);
     void onRequestMessagesSuccess(Collection<IMessage> messages);
+    void onActivityResult(int requestCode, int resultCode, Intent data);
 }
