@@ -45,6 +45,7 @@ public class CredentialsProvider implements ICredentialsProvider {
 
     @Override
     public void setAccountName(String name) {
+        getCredentials().setSelectedAccountName(name);
         SharedPreferences.Editor editor = mContext.getSharedPreferences(GMAIL_API_TEST_SHAREDS,
                 Context.MODE_PRIVATE).edit();
         editor.putString(PREF_ACCOUNT_NAME, name);
