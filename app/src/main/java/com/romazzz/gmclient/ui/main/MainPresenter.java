@@ -9,6 +9,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.romazzz.gmclient.GCApp;
 import com.romazzz.gmclient.domain.IGetMessageListInteractor;
+import com.romazzz.gmclient.domain.MessageSenndInteractor;
 import com.romazzz.gmclient.mailclient.ICredentialsProvider;
 import com.romazzz.gmclient.mailclient.IMessage;
 
@@ -19,7 +20,9 @@ import javax.inject.Inject;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
+import rx.Completable;
 import rx.Observer;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -79,7 +82,27 @@ public class MainPresenter implements IMainPresenter {
     }
 
     private void sendMessageTestMethod() {
-        
+        MessageSenndInteractor messageSenndInteractor =
+                new MessageSenndInteractor(mCredentialsProvider.getCredentials());
+        messageSenndInteractor.getSenderCompletable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Completable.CompletableSubscriber() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onSubscribe(Subscription d) {
+
+                    }
+                });
     }
 
     @AfterPermissionGranted(GCApp.REQUEST_PERMISSION_GET_ACCOUNTS)
