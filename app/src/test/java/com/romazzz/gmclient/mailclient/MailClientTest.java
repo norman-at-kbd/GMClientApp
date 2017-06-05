@@ -67,11 +67,11 @@ public class MailClientTest {
         assertTrue(isMailSent);
     }
 
-    @Test
-    public void java8Test() {
-        List<Integer> list = Arrays.asList(1,2,3,4,5,6,7,8,9,0);
-        list.forEach(System.out::print);
-        System.out.println("");
-        list.stream().filter(s->s>5).forEach(System.out::print);
-    }
+//    @Test
+//    public void java8Test() {
+//        List<Integer> list = Arrays.asList(1,2,3,4,5,6,7,8,9,0);
+//        list.forEach(System.out::print);
+//        System.out.println("");
+//        list.stream().filter(s->s>5).forEach(System.out::print);
+//    }
 }
