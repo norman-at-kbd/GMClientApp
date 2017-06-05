@@ -26,12 +26,12 @@ import rx.Completable;
  * Created by z01tan on 6/5/17.
  */
 
-public class MessageSenndInteractor implements IMessageSendInteractor {
+public class MessageSendInteractor implements IMessageSendInteractor {
     private static final String TAG = GetMessageListInteractor.class.getSimpleName();
 
     private Gmail mService = null;
 
-    public MessageSenndInteractor(GoogleAccountCredential credential) {
+    public MessageSendInteractor(GoogleAccountCredential credential) {
         HttpTransport transport = AndroidHttp.newCompatibleTransport();
         JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
         mService = new com.google.api.services.gmail.Gmail.Builder(

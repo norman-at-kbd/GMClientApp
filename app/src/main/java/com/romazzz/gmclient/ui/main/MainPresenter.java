@@ -9,7 +9,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.romazzz.gmclient.GCApp;
 import com.romazzz.gmclient.domain.IGetMessageListInteractor;
-import com.romazzz.gmclient.domain.MessageSenndInteractor;
+import com.romazzz.gmclient.domain.MessageSendInteractor;
 import com.romazzz.gmclient.mailclient.ICredentialsProvider;
 import com.romazzz.gmclient.mailclient.IMessage;
 
@@ -82,9 +82,9 @@ public class MainPresenter implements IMainPresenter {
     }
 
     private void sendMessageTestMethod() {
-        MessageSenndInteractor messageSenndInteractor =
-                new MessageSenndInteractor(mCredentialsProvider.getCredentials());
-        messageSenndInteractor.getSenderCompletable()
+        MessageSendInteractor messageSendInteractor =
+                new MessageSendInteractor(mCredentialsProvider.getCredentials());
+        messageSendInteractor.getSenderCompletable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Completable.CompletableSubscriber() {
