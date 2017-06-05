@@ -78,6 +78,10 @@ public class MainPresenter implements IMainPresenter {
         }
     }
 
+    private void sendMessageTestMethod() {
+        
+    }
+
     @AfterPermissionGranted(GCApp.REQUEST_PERMISSION_GET_ACCOUNTS)
     public void chooseAccount() {
         if (EasyPermissions.hasPermissions(
