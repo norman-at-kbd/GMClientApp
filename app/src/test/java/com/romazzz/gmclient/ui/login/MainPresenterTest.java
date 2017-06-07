@@ -38,6 +38,7 @@ public class MainPresenterTest {
     @Before
     public void init(){
         MockitoAnnotations.initMocks(this);
+        MainPresenter = new MainPresenter();
         MainPresenter.onAttach(mockMainView);
 
         ViewComponent viewComponent = DaggerViewComponent.builder().viewModule(new ViewModule() {
