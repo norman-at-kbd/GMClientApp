@@ -7,6 +7,8 @@ import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlayServicesAvailabilityIOException;
+import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.romazzz.gmclient.GCApp;
 import com.romazzz.gmclient.domain.IGetMessageListInteractor;
 import com.romazzz.gmclient.domain.MessageSendInteractor;
@@ -55,15 +57,34 @@ public class MainPresenter implements IMainPresenter {
 
     @Override
     public void onRequestMessagesError(Throwable throwable) {
-        if(mView.get()!=null) {
+        if (mView.get() != null) {
             mView.get().hideProgress();
             mView.get().showLoginError();
         }
+
+        if (throwable instanceof GooglePlayServicesAvailabilityIOException) {
+            onGoogleServicesAvalibilityError((GooglePlayServicesAvailabilityIOException) throwable);
+        } else if (throwable instanceof UserRecoverableAuthIOException) {
+            onUserRevoverableAuthIOException((UserRecoverableAuthIOException) throwable);
+        } else {
+            Log.d(TAG, "The following error ocured:\n" + throwable.getMessage());
+            //TODO show error notification on user screen
+        }
+    }
+
+    private void onGoogleServicesAvalibilityError(GooglePlayServicesAvailabilityIOException throwable) {
+        if (mView.get() != null)
+            mView.get().showGooglePlayServicesAvailabilityErrorDialog(throwable.getConnectionStatusCode());
+    }
+
+    private void onUserRevoverableAuthIOException(UserRecoverableAuthIOException throwable) {
+        if (mView.get() != null)
+            mView.get().startActivityForResult(throwable.getIntent(), GCApp.REQUEST_AUTHORIZATION);
     }
 
     @Override
     public void onRequestMessagesSuccess(Collection<IMessage> messages) {
-        if(mView.get()!=null) {
+        if (mView.get() != null) {
             mView.get().hideProgress();
             mView.get().showMessages(messages);
         }
@@ -71,7 +92,7 @@ public class MainPresenter implements IMainPresenter {
 
     @Override
     public void requestMessages() {
-        if (! isGooglePlayServicesAvailable()) {
+        if (!isGooglePlayServicesAvailable()) {
             acquireGooglePlayServices();
         } else if (mCredentialsProvider.getCredentials().getSelectedAccountName() == null) {
             chooseAccount();
@@ -98,6 +119,7 @@ public class MainPresenter implements IMainPresenter {
                     @Override
                     public void onError(Throwable e) {
                         Log.d(TAG, "send message error " + e.toString());
+                        MainPresenter.this.onRequestMessagesError(e);
                     }
 
                     @Override
@@ -137,7 +159,7 @@ public class MainPresenter implements IMainPresenter {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch(requestCode) {
+        switch (requestCode) {
             case GCApp.REQUEST_GOOGLE_PLAY_SERVICES:
                 if (resultCode != RESULT_OK) {
 //                    mView.get().showOutputText(
@@ -189,7 +211,7 @@ public class MainPresenter implements IMainPresenter {
     class GetMessageObserver implements Observer<Collection<IMessage>> {
         @Override
         public void onCompleted() {
-            if(MainPresenter.this.mView.get()!=null)
+            if (MainPresenter.this.mView.get() != null)
                 MainPresenter.this.mView.get().hideProgress();
         }
 
