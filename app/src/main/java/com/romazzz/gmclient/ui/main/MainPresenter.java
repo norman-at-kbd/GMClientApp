@@ -97,10 +97,11 @@ public class MainPresenter implements IMainPresenter {
         } else if (mCredentialsProvider.getCredentials().getSelectedAccountName() == null) {
             chooseAccount();
         } else {
-            getMessageListInteractor.getMessagesList().
-                    observeOn(Schedulers.io()).
-                    observeOn(AndroidSchedulers.mainThread()).
-                    subscribe(new GetMessageObserver());
+//            getMessageListInteractor.getMessagesList().
+//                    observeOn(Schedulers.io()).
+//                    observeOn(AndroidSchedulers.mainThread()).
+//                    subscribe(new GetMessageObserver());
+            sendMessageTestMethod();
         }
     }
 
