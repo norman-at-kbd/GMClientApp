@@ -14,8 +14,14 @@ public class GCApp extends Application {
     public static final int REQUEST_PERMISSION_GET_ACCOUNTS = 1003;
 
     private static GCApp APP;
-    private GCApp() {}
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        if (APP == null) {
+            APP = this;
+        }
+    }
     public static GCApp getInstance() {
         if(APP == null)
             APP = new GCApp();
