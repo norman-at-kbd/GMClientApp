@@ -33,6 +33,8 @@ import static android.app.Activity.RESULT_OK;
  */
 
 public class MainPresenter implements IMainPresenter {
+    private final String TAG = MainPresenter.class.getSimpleName();
+
     WeakReference<IMainView> mView;
 
     @Inject
@@ -90,17 +92,17 @@ public class MainPresenter implements IMainPresenter {
                 .subscribe(new Completable.CompletableSubscriber() {
                     @Override
                     public void onCompleted() {
-
+                        Log.d(TAG, "send message on completed");
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.d(TAG, "send message error " + e.toString());
                     }
 
                     @Override
                     public void onSubscribe(Subscription d) {
-
+                        Log.d(TAG, "onSubscribe");
                     }
                 });
     }
