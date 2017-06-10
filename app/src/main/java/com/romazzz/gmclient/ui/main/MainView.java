@@ -40,7 +40,7 @@ public class MainView extends BaseActivity implements IMainView {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewComponent.inject(this);
+        getViewComponent().inject(this);
         setContentView(R.layout.login_view);
         mPresenter.onAttach(this);
         ButterKnife.bind(this);
