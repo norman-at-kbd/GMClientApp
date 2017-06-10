@@ -13,13 +13,6 @@ import com.romazzz.gmclient.di.module.ViewModule;
  */
 
 public class BaseActivity extends AppCompatActivity {
-    protected ViewComponent mViewComponent;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mViewComponent = getViewComponent();
-    }
 
     protected ViewComponent getViewComponent() {
         return DaggerViewComponent.builder().viewModule(new ViewModule()).build();
