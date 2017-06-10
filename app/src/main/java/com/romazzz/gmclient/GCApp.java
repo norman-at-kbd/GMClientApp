@@ -3,6 +3,10 @@ package com.romazzz.gmclient;
 import android.app.Application;
 import android.content.Context;
 
+import com.romazzz.gmclient.di.component.AppComponent;
+import com.romazzz.gmclient.di.component.DaggerAppComponent;
+import com.romazzz.gmclient.di.module.AppModule;
+
 /**
  * Created by z01tan on 5/29/17.
  */
@@ -14,6 +18,7 @@ public class GCApp extends Application {
     public static final int REQUEST_PERMISSION_GET_ACCOUNTS = 1003;
 
     private static GCApp APP;
+    private AppComponent mAppComponent;
 
     @Override
     public void onCreate() {
@@ -21,6 +26,8 @@ public class GCApp extends Application {
         if (APP == null) {
             APP = this;
         }
+
+        mAppComponent = DaggerAppComponent.builder().appModule(new AppModule()).build();
     }
     public static GCApp getInstance() {
         if(APP == null)
@@ -30,5 +37,9 @@ public class GCApp extends Application {
 
     public static Context getAppContext() {
         return getInstance();
+    }
+
+    public AppComponent getAppComponent() {
+        return mAppComponent;
     }
 }
