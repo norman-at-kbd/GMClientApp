@@ -10,7 +10,7 @@ import dagger.Component;
  * Created by z01tan on 5/16/17.
  */
 @PerViewScope
-@Component(modules = {ViewModule.class})
+@Component(dependencies = AppComponent.class, modules = ViewModule.class)
 public interface ViewComponent {
     void inject(MainView view);
 }
