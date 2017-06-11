@@ -59,7 +59,7 @@ public class MainPresenter implements IMainPresenter {
     public void onRequestMessagesError(Throwable throwable) {
         if (mView.get() != null) {
             mView.get().hideProgress();
-            mView.get().showLoginError();
+            mView.get().showError("onRequestErrorMessage");
         }
 
         if (throwable instanceof GooglePlayServicesAvailabilityIOException) {
@@ -69,6 +69,7 @@ public class MainPresenter implements IMainPresenter {
         } else {
             Log.d(TAG, "The following error ocured:\n" + throwable.getMessage());
             //TODO show error notification on user screen
+            mView.get().showError("The following error ocured:\n" + throwable.getMessage());
         }
     }
 
