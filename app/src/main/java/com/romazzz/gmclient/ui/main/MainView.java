@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.romazzz.gmclient.GCApp;
@@ -73,8 +74,9 @@ public class MainView extends BaseActivity implements IMainView {
     }
 
     @Override
-    public void showLoginError() {
-
+    public void showError(String errMessage) {
+        Toast toast = Toast.makeText(this, errMessage, Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     @Override
