@@ -57,19 +57,16 @@ public class MainPresenter implements IMainPresenter {
 
     @Override
     public void onRequestMessagesError(Throwable throwable) {
-        if (mView.get() != null) {
-            mView.get().hideProgress();
-            mView.get().showError("onRequestErrorMessage");
-        }
-
         if (throwable instanceof GooglePlayServicesAvailabilityIOException) {
             onGoogleServicesAvalibilityError((GooglePlayServicesAvailabilityIOException) throwable);
         } else if (throwable instanceof UserRecoverableAuthIOException) {
             onUserRevoverableAuthIOException((UserRecoverableAuthIOException) throwable);
         } else {
-            Log.d(TAG, "The following error ocured:\n" + throwable.getMessage());
             //TODO show error notification on user screen
-            mView.get().showError("The following error ocured:\n" + throwable.getMessage());
+            if (mView.get() != null) {
+                mView.get().hideProgress();
+                mView.get().showError(throwable.getMessage());
+            }
         }
     }
 
@@ -137,7 +134,7 @@ public class MainPresenter implements IMainPresenter {
                 GCApp.getAppContext(), Manifest.permission.GET_ACCOUNTS)) {
             String accountName = mCredentialsProvider.getAccountName();
             if (accountName != null) {
-                mCredentialsProvider.getCredentials().setSelectedAccountName(accountName);
+                mCredentialsProvider.getCredentials().setSelectedAccountName(accountName); //TODO it has to be already set, doesn't it??
                 requestMessages();
             } else {
                 // Start a dialog from which the user can choose an account
@@ -200,6 +197,7 @@ public class MainPresenter implements IMainPresenter {
         if (apiAvailability.isUserResolvableError(connectionStatusCode)) {
             mView.get().showGooglePlayServicesAvailabilityErrorDialog(connectionStatusCode);
         }
+        //TODO ELSE??
     }
 
     private boolean isGooglePlayServicesAvailable() {
