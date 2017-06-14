@@ -1,5 +1,7 @@
 package com.romazzz.gmclient.ui.login;
 
+import com.google.android.gms.auth.GooglePlayServicesAvailabilityException;
+import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlayServicesAvailabilityIOException;
 import com.romazzz.gmclient.di.component.DaggerViewComponent;
 import com.romazzz.gmclient.di.component.ViewComponent;
 import com.romazzz.gmclient.di.module.ViewModule;
@@ -8,6 +10,7 @@ import com.romazzz.gmclient.ui.main.IMainPresenter;
 import com.romazzz.gmclient.ui.main.MainPresenter;
 import com.romazzz.gmclient.ui.main.MainView;
 
+import org.apache.tools.ant.Main;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +20,10 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 /**
  * Created by z01tan on 17/05/2017.
  */
@@ -38,7 +44,7 @@ public class MainPresenterTest {
     @Before
     public void init(){
         MockitoAnnotations.initMocks(this);
-        MainPresenter = new MainPresenter();
+        MainPresenter = new MainPresenter(null, null);
         MainPresenter.onAttach(mockMainView);
 
 //        ViewComponent viewComponent = DaggerViewComponent.builder().viewModule(new ViewModule() {
@@ -53,9 +59,10 @@ public class MainPresenterTest {
 
     @Test
     public void presenterLoginErrorTest() {
-        MainPresenter.onRequestMessagesError(new Throwable());
+        String errMessage = "errorMessage";
+        MainPresenter.onRequestMessagesError(new Throwable(errMessage));
         verify(mockMainView).hideProgress();
-        verify(mockMainView).showLoginError();
+        verify(mockMainView).showError(errMessage);
     }
 
     @Test

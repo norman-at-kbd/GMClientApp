@@ -8,6 +8,8 @@ import com.romazzz.gmclient.R;
 import com.romazzz.gmclient.di.component.DaggerViewComponent;
 import com.romazzz.gmclient.di.component.ViewComponent;
 import com.romazzz.gmclient.di.module.ViewModule;
+import com.romazzz.gmclient.domain.IGetMessageListInteractor;
+import com.romazzz.gmclient.mailclient.ICredentialsProvider;
 import com.romazzz.gmclient.ui.main.IMainPresenter;
 import com.romazzz.gmclient.ui.main.MainPresenter;
 import com.romazzz.gmclient.ui.main.MainView;
@@ -41,7 +43,8 @@ public class RoboelectricMainViewTest {
         ViewComponent viewComponent = DaggerViewComponent.builder()
                 .viewModule(new ViewModule() {
                     @Override
-                    protected IMainPresenter getMainPresenter () {
+                    protected IMainPresenter getMainPresenter (IGetMessageListInteractor interactor,
+                                                               ICredentialsProvider provider) {
                         return mockedMainPresenter;
                     }
                 })
