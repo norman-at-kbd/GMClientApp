@@ -39,11 +39,14 @@ public class MainPresenter implements IMainPresenter {
 
     WeakReference<IMainView> mView;
 
-    @Inject
     IGetMessageListInteractor getMessageListInteractor;
 
-    @Inject
     ICredentialsProvider mCredentialsProvider;
+
+    public MainPresenter(IGetMessageListInteractor interactor, ICredentialsProvider provider) {
+        getMessageListInteractor = interactor;
+        mCredentialsProvider = provider;
+    }
 
     @Override
     public void onAttach(IMainView view) {

@@ -1,6 +1,8 @@
 package com.romazzz.gmclient.di.module;
 
 import com.romazzz.gmclient.di.PerViewScope;
+import com.romazzz.gmclient.domain.IGetMessageListInteractor;
+import com.romazzz.gmclient.mailclient.ICredentialsProvider;
 import com.romazzz.gmclient.ui.main.IMainPresenter;
 import com.romazzz.gmclient.ui.main.MainPresenter;
 
@@ -15,7 +17,8 @@ import dagger.Provides;
 public class ViewModule {
     @Provides
     @PerViewScope
-    protected IMainPresenter getMainPresenter() {
-        return new MainPresenter();
+    protected IMainPresenter getMainPresenter(IGetMessageListInteractor interactor,
+                                              ICredentialsProvider provider) {
+        return new MainPresenter(interactor, provider);
     }
 }
