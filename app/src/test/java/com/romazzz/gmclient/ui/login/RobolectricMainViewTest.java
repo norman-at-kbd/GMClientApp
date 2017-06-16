@@ -29,7 +29,7 @@ import static org.junit.Assert.*;
  */
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class RoboelectricMainViewTest {
+public class RobolectricMainViewTest {
     private MainView MainView;
     @Mock
     private MainPresenter mockedMainPresenter;
