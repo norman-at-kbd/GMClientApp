@@ -8,6 +8,8 @@ import com.romazzz.gmclient.domain.IGetMessageListInteractor;
 import com.romazzz.gmclient.mailclient.CredentialsProvider;
 import com.romazzz.gmclient.mailclient.ICredentialsProvider;
 import com.romazzz.gmclient.mailclient.IMessage;
+import com.romazzz.gmclient.mailclient.IPermissions;
+import com.romazzz.gmclient.mailclient.Permissions;
 
 import java.util.Collection;
 
@@ -45,5 +47,11 @@ public class AppModule {
                 return null;
             }
         };
+    }
+
+    @Provides
+    @PerAppScope
+    IPermissions providePermissions() {
+        return new Permissions();
     }
 }
