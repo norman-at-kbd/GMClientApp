@@ -18,7 +18,7 @@ import java.util.Collection;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -31,7 +31,7 @@ public class MainView extends BaseActivity implements IMainView {
     @Inject
     IMainPresenter mPresenter;
 
-    @Bind(R.id.login_btn)
+    @BindView(R.id.login_btn)
     Button loginBtn;
 
     public MainView() {
