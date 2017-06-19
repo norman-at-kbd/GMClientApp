@@ -1,11 +1,13 @@
 package com.romazzz.gmclient;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
 import com.romazzz.gmclient.di.component.AppComponent;
 import com.romazzz.gmclient.di.component.DaggerAppComponent;
 import com.romazzz.gmclient.di.module.AppModule;
+import com.romazzz.gmclient.ui.main.IMainView;
 
 /**
  * Created by z01tan on 5/29/17.
@@ -19,6 +21,7 @@ public class GCApp extends Application {
 
     private static GCApp APP;
     private AppComponent mAppComponent;
+    private IMainView mEasyPermimssionsDep;
 
     @Override
     public void onCreate() {
@@ -41,5 +44,13 @@ public class GCApp extends Application {
 
     public AppComponent getAppComponent() {
         return mAppComponent;
+    }
+
+    public void setEasyPermimssionsDep(IMainView view) {
+        mEasyPermimssionsDep = view;
+    }
+
+    public IMainView getEasyPermissionsDep() {
+        return mEasyPermimssionsDep;
     }
 }
