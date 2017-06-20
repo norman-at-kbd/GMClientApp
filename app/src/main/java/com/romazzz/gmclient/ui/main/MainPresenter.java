@@ -51,11 +51,13 @@ public class MainPresenter implements IMainPresenter {
     @Override
     public void onAttach(IMainView view) {
         mView = new WeakReference<>(view);
+        GCApp.getInstance().setEasyPermimssionsDep(mView);
     }
 
     @Override
     public void onDetach() {
         mView = null;
+        GCApp.getInstance().setEasyPermimssionsDep(null);
     }
 
     @Override

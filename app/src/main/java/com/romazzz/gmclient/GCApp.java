@@ -9,6 +9,8 @@ import com.romazzz.gmclient.di.component.DaggerAppComponent;
 import com.romazzz.gmclient.di.module.AppModule;
 import com.romazzz.gmclient.ui.main.IMainView;
 
+import java.lang.ref.WeakReference;
+
 /**
  * Created by z01tan on 5/29/17.
  */
@@ -21,7 +23,7 @@ public class GCApp extends Application {
 
     private static GCApp APP;
     private AppComponent mAppComponent;
-    private IMainView mEasyPermimssionsDep;
+    private WeakReference<IMainView> mEasyPermimssionsDep;
 
     @Override
     public void onCreate() {
@@ -46,11 +48,11 @@ public class GCApp extends Application {
         return mAppComponent;
     }
 
-    public void setEasyPermimssionsDep(IMainView view) {
+    public void setEasyPermimssionsDep(WeakReference<IMainView> view) {
         mEasyPermimssionsDep = view;
     }
 
     public IMainView getEasyPermissionsDep() {
-        return mEasyPermimssionsDep;
+        return mEasyPermimssionsDep.get();
     }
 }
