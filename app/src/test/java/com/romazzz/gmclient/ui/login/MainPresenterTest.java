@@ -32,13 +32,7 @@ import static org.mockito.Mockito.when;
 public class MainPresenterTest {
     @Mock
     MainView mockMainView;
-//    @Mock
-//    com.romazzz.gmclient.ui.main.MainPresenter mockMainPresenter;
 
-//    @Mock
-//    CredentialsProvider credentialsProvider;
-//
-//    MainView mainView;
     MainPresenter MainPresenter;
 
     @Before
@@ -46,15 +40,6 @@ public class MainPresenterTest {
         MockitoAnnotations.initMocks(this);
         MainPresenter = new MainPresenter(null, null);
         MainPresenter.onAttach(mockMainView);
-
-//        ViewComponent viewComponent = DaggerViewComponent.builder().viewModule(new ViewModule() {
-//            @Override
-//            protected IMainPresenter getMainPresenter(){
-//                return mockMainPresenter;
-//            }
-//        }).build();
-//        mainView = new MainView();
-//        viewComponent.inject(mainView);
     }
 
     @Test
@@ -72,10 +57,4 @@ public class MainPresenterTest {
         verify(mockMainView).hideProgress();
         verify(mockMainView).showMessages(messages);
     }
-//
-//    @Test
-//    public void viewLoginClickTest() {
-//        mainView.loginPressed();
-//        verify(mockMainPresenter).requestMessages();
-//    }
 }
