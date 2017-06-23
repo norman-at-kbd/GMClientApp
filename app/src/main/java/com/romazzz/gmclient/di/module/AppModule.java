@@ -7,9 +7,11 @@ import com.romazzz.gmclient.di.PerAppScope;
 import com.romazzz.gmclient.domain.IGetMessageListInteractor;
 import com.romazzz.gmclient.mailclient.gapi.CredentialsProvider;
 import com.romazzz.gmclient.mailclient.gapi.GApiAvalibility;
+import com.romazzz.gmclient.mailclient.gapi.GApiHelper;
 import com.romazzz.gmclient.mailclient.gapi.ICredentialsProvider;
 import com.romazzz.gmclient.mailclient.gapi.IGApiAvalability;
 import com.romazzz.gmclient.mailclient.IMessage;
+import com.romazzz.gmclient.mailclient.gapi.IGApiHelper;
 import com.romazzz.gmclient.mailclient.gapi.IPermissions;
 import com.romazzz.gmclient.mailclient.gapi.Permissions;
 
@@ -63,4 +65,11 @@ public class AppModule {
         return new GApiAvalibility();
     }
 
+    @Provides
+    @PerAppScope
+    IGApiHelper providesGApiHelper(ICredentialsProvider cred,
+                                   IPermissions perm,
+                                   IGApiAvalability avail) {
+        return new GApiHelper(cred, perm, avail);
+    }
 }
