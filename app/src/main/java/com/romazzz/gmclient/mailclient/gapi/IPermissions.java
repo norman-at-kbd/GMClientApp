@@ -1,4 +1,4 @@
-package com.romazzz.gmclient.mailclient;
+package com.romazzz.gmclient.mailclient.gapi;
 
 /**
  * Created by z01tan on 6/15/17.

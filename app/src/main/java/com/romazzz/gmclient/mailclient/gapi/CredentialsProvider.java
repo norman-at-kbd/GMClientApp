@@ -1,4 +1,4 @@
-package com.romazzz.gmclient.mailclient;
+package com.romazzz.gmclient.mailclient.gapi;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.gmail.GmailScopes;
-import com.romazzz.gmclient.GCApp;
 
 import java.util.Arrays;
 

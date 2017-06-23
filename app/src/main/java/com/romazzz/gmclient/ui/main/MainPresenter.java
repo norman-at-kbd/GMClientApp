@@ -12,13 +12,11 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecovera
 import com.romazzz.gmclient.GCApp;
 import com.romazzz.gmclient.domain.IGetMessageListInteractor;
 import com.romazzz.gmclient.domain.MessageSendInteractor;
-import com.romazzz.gmclient.mailclient.ICredentialsProvider;
+import com.romazzz.gmclient.mailclient.gapi.ICredentialsProvider;
 import com.romazzz.gmclient.mailclient.IMessage;
 
 import java.lang.ref.WeakReference;
 import java.util.Collection;
-
-import javax.inject.Inject;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;

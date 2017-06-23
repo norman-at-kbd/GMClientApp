@@ -1,4 +1,4 @@
-package com.romazzz.gmclient.mailclient;
+package com.romazzz.gmclient.mailclient.gapi;
 
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 

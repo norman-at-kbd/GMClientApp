@@ -1,5 +1,7 @@
 package com.romazzz.gmclient.mailclient;
 
+import com.romazzz.gmclient.mailclient.gapi.IPermissions;
+
 /**
  * Created by z01tan on 16/06/2017.
  */

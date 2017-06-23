@@ -1,4 +1,4 @@
-package com.romazzz.gmclient.mailclient;
+package com.romazzz.gmclient.mailclient.gapi;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;

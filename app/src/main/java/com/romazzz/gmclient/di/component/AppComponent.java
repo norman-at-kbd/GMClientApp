@@ -3,7 +3,7 @@ package com.romazzz.gmclient.di.component;
 import com.romazzz.gmclient.di.PerAppScope;
 import com.romazzz.gmclient.di.module.AppModule;
 import com.romazzz.gmclient.domain.IGetMessageListInteractor;
-import com.romazzz.gmclient.mailclient.ICredentialsProvider;
+import com.romazzz.gmclient.mailclient.gapi.ICredentialsProvider;
 import com.romazzz.gmclient.ui.main.MainPresenter;
 
 import dagger.Component;

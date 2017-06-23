@@ -9,7 +9,7 @@ import com.romazzz.gmclient.di.component.DaggerViewComponent;
 import com.romazzz.gmclient.di.component.ViewComponent;
 import com.romazzz.gmclient.di.module.ViewModule;
 import com.romazzz.gmclient.domain.IGetMessageListInteractor;
-import com.romazzz.gmclient.mailclient.ICredentialsProvider;
+import com.romazzz.gmclient.mailclient.gapi.ICredentialsProvider;
 import com.romazzz.gmclient.ui.main.IMainPresenter;
 import com.romazzz.gmclient.ui.main.MainPresenter;
 import com.romazzz.gmclient.ui.main.MainView;
