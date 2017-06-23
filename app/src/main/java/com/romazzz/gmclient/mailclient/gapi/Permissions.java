@@ -14,25 +14,24 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class Permissions implements IPermissions {
     ICredentialsProvider mCredentialsProvider;
-    Object mObject;
+
     /**
      * @param cred credentials provider interface
-     * @param object Activity or Fragment object needed for easypermissions
      */
 
     @Inject
-    public Permissions(ICredentialsProvider cred, Object object) {
+    public Permissions(ICredentialsProvider cred) {
         mCredentialsProvider = cred;
-        mObject = object;
     }
 
     /**
      * @param choosen callback which called if account is set
      * @param pick callback which has to be called to choose account
+     * @param obj Activity or Fragment object needed for easypermissions
      */
 
     @Override
-    public void chooseAccount(onAccountChosen choosen, pickUpAccount pick) {
+    public void chooseAccount(onAccountChosen choosen, pickUpAccount pick, Object obj) {
         if (EasyPermissions.hasPermissions(
                 GCApp.getAppContext(), Manifest.permission.GET_ACCOUNTS)) {
             String accountName = mCredentialsProvider.getAccountName();
@@ -49,18 +48,18 @@ public class Permissions implements IPermissions {
             }
         } else {
             // Request the GET_ACCOUNTS permission via a user dialog
-            requestPermissions();
+            requestPermissions(obj);
         }
     }
 
     /**
      * request access permissions for application
+     * @param obj Activity or Fragment object needed for easypermissions
      */
 
-    @Override
-    public void  requestPermissions() {
+    public void  requestPermissions(Object obj) {
         EasyPermissions.requestPermissions(
-                mObject,
+                obj,
                 "This app needs to access your Google account (via Contacts).",
                 GCApp.REQUEST_PERMISSION_GET_ACCOUNTS,
                 Manifest.permission.GET_ACCOUNTS);

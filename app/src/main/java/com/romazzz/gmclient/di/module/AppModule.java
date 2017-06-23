@@ -53,8 +53,8 @@ public class AppModule {
 
     @Provides
     @PerAppScope
-    IPermissions providePermissions() {
-        return new Permissions();
+    IPermissions providePermissions(ICredentialsProvider cred) {
+        return new Permissions(cred);
     }
 
     @Provides
@@ -62,4 +62,5 @@ public class AppModule {
     IGApiAvalability  provideGApiAvalibility() {
         return new GApiAvalibility();
     }
+
 }

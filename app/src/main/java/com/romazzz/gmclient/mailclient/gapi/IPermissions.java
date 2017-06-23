@@ -7,8 +7,14 @@ import android.support.annotation.NonNull;
  */
 
 public interface IPermissions {
-    void chooseAccount(@NonNull onAccountChosen accc, @NonNull pickUpAccount pickUpAccount);
-    void requestPermissions();
+    /**
+     * @param accc callback which called if account is set
+     * @param pick callback which has to be called to choose account
+     * @param obj Activity or Fragment object needed for easypermissions
+     */
+    void chooseAccount(@NonNull onAccountChosen accc,
+                       @NonNull pickUpAccount pick,
+                       @NonNull Object obj);
 
     interface onAccountChosen {
         void onAccChosen();
