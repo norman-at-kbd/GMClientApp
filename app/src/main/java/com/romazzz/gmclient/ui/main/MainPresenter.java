@@ -14,6 +14,7 @@ import com.romazzz.gmclient.domain.IGetMessageListInteractor;
 import com.romazzz.gmclient.domain.MessageSendInteractor;
 import com.romazzz.gmclient.mailclient.gapi.ICredentialsProvider;
 import com.romazzz.gmclient.mailclient.IMessage;
+import com.romazzz.gmclient.mailclient.gapi.IGApiHelper;
 
 import java.lang.ref.WeakReference;
 import java.util.Collection;
@@ -26,8 +27,6 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-import static android.app.Activity.RESULT_OK;
-
 /**
  * Created by z01tan on 5/16/17.
  */
@@ -36,14 +35,13 @@ public class MainPresenter implements IMainPresenter {
     private final String TAG = MainPresenter.class.getSimpleName();
 
     WeakReference<IMainView> mView;
-
     IGetMessageListInteractor getMessageListInteractor;
+    IGApiHelper mGApiHelper;
 
-    ICredentialsProvider mCredentialsProvider;
-
-    public MainPresenter(IGetMessageListInteractor interactor, ICredentialsProvider provider) {
+    public MainPresenter(IGetMessageListInteractor interactor,
+                         IGApiHelper gApiHelper) {
         getMessageListInteractor = interactor;
-        mCredentialsProvider = provider;
+        mGApiHelper = gApiHelper;
     }
 
     @Override
@@ -93,9 +91,9 @@ public class MainPresenter implements IMainPresenter {
 
     @Override
     public void requestMessages() {
-        if (!isGooglePlayServicesAvailable()) {
-            acquireGooglePlayServices();
-        } else if (mCredentialsProvider.getCredentials().getSelectedAccountName() == null) {
+        if (!mGApiHelper.isGooglePlayServicesAvailable()) {
+            mGApiHelper.acquireGooglePlayServices();
+        } else if (mGApiHelper.getCredentials().getSelectedAccountName() == null) {
             chooseAccount();
         } else {
 //            getMessageListInteractor.getMessagesList().
@@ -108,7 +106,7 @@ public class MainPresenter implements IMainPresenter {
 
     private void sendMessageTestMethod() {
         MessageSendInteractor messageSendInteractor =
-                new MessageSendInteractor(mCredentialsProvider.getCredentials());
+                new MessageSendInteractor(mGApiHelper.getCredentials());
         messageSendInteractor.getSenderCompletable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -133,82 +131,22 @@ public class MainPresenter implements IMainPresenter {
 
     @AfterPermissionGranted(GCApp.REQUEST_PERMISSION_GET_ACCOUNTS)
     public void chooseAccount() {
-        if (EasyPermissions.hasPermissions(
-                GCApp.getAppContext(), Manifest.permission.GET_ACCOUNTS)) {
-            String accountName = mCredentialsProvider.getAccountName();
-            if (accountName != null) {
-                mCredentialsProvider.getCredentials().setSelectedAccountName(accountName); //TODO it has to be already set, doesn't it??
-                requestMessages();
-            } else {
-                // Start a dialog from which the user can choose an account
-                mView.get().startActivityForResult(
-                        mCredentialsProvider.getCredentials().newChooseAccountIntent(),
-                        GCApp.REQUEST_ACCOUNT_PICKER);
-            }
-        } else {
-            // Request the GET_ACCOUNTS permission via a user dialog
-            requestPermissions();
-        }
+        mGApiHelper.chooseAccount(this::onAccountChoosed,this::pickUpAccount,mView.get());
     }
 
-    private void requestPermissions() {
-        EasyPermissions.requestPermissions(
-                mView.get(),
-                "This app needs to access your Google account (via Contacts).",
-                GCApp.REQUEST_PERMISSION_GET_ACCOUNTS,
-                Manifest.permission.GET_ACCOUNTS);
+    private void onAccountChoosed() {
+        requestMessages();
+    }
+
+    private void pickUpAccount() {
+        mView.get().startActivityForResult(
+                mGApiHelper.getCredentials().newChooseAccountIntent(),
+                GCApp.REQUEST_ACCOUNT_PICKER);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case GCApp.REQUEST_GOOGLE_PLAY_SERVICES:
-                if (resultCode != RESULT_OK) {
-//                    mView.get().showOutputText(
-//                            "This app requires Google Play Services. Please install " +
-//                                    "Google Play Services on your device and relaunch this app.");
-                    //TODO make some mechanism to show warnings and errors in mainview
-                    Log.d("MainPresenterTag", "REQUEST_GOOGLE_PLAY_SERVICES RESULT != OK");
-                } else {
-                    requestMessages();
-                }
-                break;
-            case GCApp.REQUEST_ACCOUNT_PICKER:
-                if (resultCode == RESULT_OK && data != null &&
-                        data.getExtras() != null) {
-                    String accountName =
-                            data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
-                    if (accountName != null) {
-                        mCredentialsProvider.setAccountName(accountName);
-                        requestMessages();
-                    }
-                }
-                break;
-            case GCApp.REQUEST_AUTHORIZATION:
-                if (resultCode == RESULT_OK) {
-                    requestMessages();
-                }
-                break;
-        }
-    }
-
-    private void acquireGooglePlayServices() {
-        GoogleApiAvailability apiAvailability =
-                GoogleApiAvailability.getInstance();
-        final int connectionStatusCode =
-                apiAvailability.isGooglePlayServicesAvailable(GCApp.getAppContext());
-        if (apiAvailability.isUserResolvableError(connectionStatusCode)) {
-            mView.get().showGooglePlayServicesAvailabilityErrorDialog(connectionStatusCode);
-        }
-        //TODO ELSE??
-    }
-
-    private boolean isGooglePlayServicesAvailable() {
-        GoogleApiAvailability apiAvailability =
-                GoogleApiAvailability.getInstance();
-        final int connectionStatusCode =
-                apiAvailability.isGooglePlayServicesAvailable(GCApp.getAppContext());
-        return connectionStatusCode == ConnectionResult.SUCCESS;
+        mGApiHelper.onPermissionRequestResult(this::requestMessages, requestCode, resultCode, data);
     }
 
     class GetMessageObserver implements Observer<Collection<IMessage>> {
