@@ -11,7 +11,7 @@ import com.romazzz.gmclient.mailclient.gapi.ICredentialsProvider;
 import com.romazzz.gmclient.mailclient.gapi.IGApiAvalability;
 import com.romazzz.gmclient.mailclient.IMessage;
 import com.romazzz.gmclient.mailclient.gapi.IPermissions;
-import com.romazzz.gmclient.mailclient.Permissions;
+import com.romazzz.gmclient.mailclient.gapi.Permissions;
 
 import java.util.Collection;
 

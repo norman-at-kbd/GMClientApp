@@ -1,4 +1,4 @@
-package com.romazzz.gmclient.mailclient;
+package com.romazzz.gmclient.mailclient.gapi;
 
 import com.romazzz.gmclient.mailclient.gapi.IPermissions;
 
