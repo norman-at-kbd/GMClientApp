@@ -10,6 +10,7 @@ import com.romazzz.gmclient.di.component.ViewComponent;
 import com.romazzz.gmclient.di.module.ViewModule;
 import com.romazzz.gmclient.domain.IGetMessageListInteractor;
 import com.romazzz.gmclient.mailclient.gapi.ICredentialsProvider;
+import com.romazzz.gmclient.mailclient.gapi.IGApiHelper;
 import com.romazzz.gmclient.ui.main.IMainPresenter;
 import com.romazzz.gmclient.ui.main.MainPresenter;
 import com.romazzz.gmclient.ui.main.MainView;
@@ -44,7 +45,7 @@ public class RobolectricMainViewTest {
                 .viewModule(new ViewModule() {
                     @Override
                     protected IMainPresenter getMainPresenter (IGetMessageListInteractor interactor,
-                                                               ICredentialsProvider provider) {
+                                                               IGApiHelper igApiHelper) {
                         return mockedMainPresenter;
                     }
                 })
