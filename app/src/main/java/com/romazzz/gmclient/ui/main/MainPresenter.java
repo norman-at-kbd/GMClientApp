@@ -96,11 +96,11 @@ public class MainPresenter implements IMainPresenter {
         } else if (mGApiHelper.getAccountName() == null) {
             chooseAccount();
         } else {
-//            getMessageListInteractor.getMessagesList().
-//                    observeOn(Schedulers.io()).
+            getMessageListInteractor.getMessagesList().
+                    subscribeOn(Schedulers.io()).
 //                    observeOn(AndroidSchedulers.mainThread()).
-//                    subscribe(new GetMessageObserver());
-            sendMessageTestMethod();
+                    subscribe(new GetMessageObserver());
+//            sendMessageTestMethod();
         }
     }
 
