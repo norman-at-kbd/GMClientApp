@@ -18,6 +18,7 @@ import com.romazzz.gmclient.ui.main.IMainView;
 import com.romazzz.gmclient.ui.main.MainPresenter;
 import com.romazzz.gmclient.ui.main.MainView;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,6 +32,8 @@ import java.util.Collection;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.android.plugins.RxAndroidTestPlugins;
+import rx.plugins.RxJavaTestPlugins;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -54,6 +57,8 @@ public class RobolectricMainPresenterTest {
 
     @Before
     public void setUp() throws Exception {
+        RxJavaTestPlugins.setImmediateScheduler();
+        RxAndroidTestPlugins.setImmediateScheduler();
         mockMainView = mock(IMainView.class);
         mockGapiHelper = mock(IGApiHelper.class);
         mockGetMessageListInteractor = mock(IGetMessageListInteractor.class);
@@ -75,5 +80,11 @@ public class RobolectricMainPresenterTest {
         when(mockGetMessageListInteractor.getMessagesList()).thenReturn(mockObservable);
         MainPresenter.requestMessages();
         verify(mockMainView).showMessages(testMessages);
+    }
+
+    @After
+    public void tearDown() {
+        RxJavaTestPlugins.resetJavaTestPlugins();
+        RxAndroidTestPlugins.resetAndroidTestPlugins();
     }
 }
