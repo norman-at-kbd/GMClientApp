@@ -98,7 +98,7 @@ public class MainPresenter implements IMainPresenter {
         } else {
             getMessageListInteractor.getMessagesList().
                     subscribeOn(Schedulers.io()).
-//                    observeOn(AndroidSchedulers.mainThread()).
+                    observeOn(AndroidSchedulers.mainThread()).
                     subscribe(new GetMessageObserver());
 //            sendMessageTestMethod();
         }
