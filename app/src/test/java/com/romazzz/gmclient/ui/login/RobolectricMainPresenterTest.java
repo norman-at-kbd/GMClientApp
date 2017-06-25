@@ -1,7 +1,12 @@
 package com.romazzz.gmclient.ui.login;
 
+import android.content.Intent;
 import android.widget.Button;
 
+import com.google.android.gms.auth.GooglePlayServicesAvailabilityException;
+import com.google.android.gms.auth.MockServicesAvalibilityException;
+import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlayServicesAvailabilityIOException;
+import com.google.api.client.googleapis.extensions.android.gms.auth.MockPlayServicesAvalabilityIOException;
 import com.romazzz.gmclient.BuildConfig;
 import com.romazzz.gmclient.GCApp;
 import com.romazzz.gmclient.R;
@@ -67,7 +72,7 @@ public class RobolectricMainPresenterTest {
     }
 
     @Test
-    public void presenterGetMessageSubscriptionTest() throws Exception {
+    public void presenterGetMessageSubscriptionTest() {
         Collection<IMessage> testMessages = new TestMessageBuilder().getMessageList(3);
         Observable<Collection<IMessage>> mockObservable =
                 Observable.create((Subscriber<? super Collection<IMessage>> subscriber) ->
@@ -80,6 +85,25 @@ public class RobolectricMainPresenterTest {
         when(mockGetMessageListInteractor.getMessagesList()).thenReturn(mockObservable);
         MainPresenter.requestMessages();
         verify(mockMainView).showMessages(testMessages);
+    }
+
+
+    @Test
+    public void presenterGetMessageErrorTest() {
+        int CONNECTION_CODE = 66;
+        MockPlayServicesAvalabilityIOException exception =
+                new MockPlayServicesAvalabilityIOException(
+                        new MockServicesAvalibilityException(CONNECTION_CODE, "test", null));
+        Observable<Collection<IMessage>> mockObservable =
+                Observable.create((Subscriber<? super Collection<IMessage>> subscriber) ->
+                {
+                    subscriber.onError(exception);
+                });
+        when(mockGapiHelper.isGooglePlayServicesAvailable()).thenReturn(true);
+        when(mockGapiHelper.getAccountName()).thenReturn("testAcc");
+        when(mockGetMessageListInteractor.getMessagesList()).thenReturn(mockObservable);
+        MainPresenter.requestMessages();
+        verify(mockMainView).showGooglePlayServicesAvailabilityErrorDialog(CONNECTION_CODE);
     }
 
     @After
