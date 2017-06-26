@@ -100,33 +100,7 @@ public class MainPresenter implements IMainPresenter {
                     subscribeOn(Schedulers.io()).
                     observeOn(AndroidSchedulers.mainThread()).
                     subscribe(new GetMessageObserver());
-//            sendMessageTestMethod();
         }
-    }
-
-    private void sendMessageTestMethod() {
-        MessageSendInteractor messageSendInteractor =
-                new MessageSendInteractor(mGApiHelper.getCredentials());
-        messageSendInteractor.getSenderCompletable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Completable.CompletableSubscriber() {
-                    @Override
-                    public void onCompleted() {
-                        Log.d(TAG, "send message on completed");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.d(TAG, "send message error " + e.toString());
-                        MainPresenter.this.onRequestMessagesError(e);
-                    }
-
-                    @Override
-                    public void onSubscribe(Subscription d) {
-                        Log.d(TAG, "onSubscribe");
-                    }
-                });
     }
 
     @AfterPermissionGranted(GCApp.REQUEST_PERMISSION_GET_ACCOUNTS)
