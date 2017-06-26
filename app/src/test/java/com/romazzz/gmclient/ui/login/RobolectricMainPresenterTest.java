@@ -5,8 +5,10 @@ import android.widget.Button;
 
 import com.google.android.gms.auth.GooglePlayServicesAvailabilityException;
 import com.google.android.gms.auth.MockServicesAvalibilityException;
+import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlayServicesAvailabilityIOException;
 import com.google.api.client.googleapis.extensions.android.gms.auth.MockPlayServicesAvalabilityIOException;
+import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.romazzz.gmclient.BuildConfig;
 import com.romazzz.gmclient.GCApp;
 import com.romazzz.gmclient.R;
@@ -41,6 +43,8 @@ import rx.android.plugins.RxAndroidTestPlugins;
 import rx.plugins.RxJavaTestPlugins;
 
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -89,7 +93,7 @@ public class RobolectricMainPresenterTest {
 
 
     @Test
-    public void presenterGetMessageErrorTest() {
+    public void googlePlayServicesAvailabilityErrorTest() {
         int CONNECTION_CODE = 66;
         MockPlayServicesAvalabilityIOException exception =
                 new MockPlayServicesAvalabilityIOException(
@@ -104,6 +108,22 @@ public class RobolectricMainPresenterTest {
         when(mockGetMessageListInteractor.getMessagesList()).thenReturn(mockObservable);
         MainPresenter.requestMessages();
         verify(mockMainView).showGooglePlayServicesAvailabilityErrorDialog(CONNECTION_CODE);
+    }
+
+    @Test
+    public void userRecoverableAuthIOErrorTest() {
+        UserRecoverableAuthIOException exception = new UserRecoverableAuthIOException(
+                new UserRecoverableAuthException("MockException",null));
+        Observable<Collection<IMessage>> mockObservable =
+                Observable.create((Subscriber<? super Collection<IMessage>> subscriber) ->
+                {
+                    subscriber.onError(exception);
+                });
+        when(mockGapiHelper.isGooglePlayServicesAvailable()).thenReturn(true);
+        when(mockGapiHelper.getAccountName()).thenReturn("testAcc");
+        when(mockGetMessageListInteractor.getMessagesList()).thenReturn(mockObservable);
+        MainPresenter.requestMessages();
+        verify(mockMainView).startActivityForResult(any(),eq(GCApp.REQUEST_AUTHORIZATION));
     }
 
     @After
