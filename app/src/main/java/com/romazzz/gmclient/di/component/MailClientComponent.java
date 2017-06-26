@@ -12,11 +12,11 @@ import dagger.Component;
 /**
  * Created by z01tan on 4/6/17.
  */
-
-@Singleton
-@Component(modules = {MailClientModule.class,
-        MessageStorageModule.class,
-        NetworkMailClientModule.class})
+//
+//@Singleton
+//@Component(modules = {MailClientModule.class,
+//        MessageStorageModule.class,
+//        NetworkMailClientModule.class})
 public interface MailClientComponent {
     IMailClient getMailClient();
 }

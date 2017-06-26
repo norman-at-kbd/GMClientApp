@@ -1,5 +1,6 @@
 package com.romazzz.gmclient.di.module;
 
+import com.romazzz.gmclient.mailclient.gapi.ICredentialsProvider;
 import com.romazzz.gmclient.mailclient.network.INetworkMailClient;
 import com.romazzz.gmclient.mailclient.network.NetworkMailClient;
 
@@ -13,7 +14,7 @@ import dagger.Provides;
 @Module
 public class NetworkMailClientModule {
     @Provides
-    protected INetworkMailClient provideNetworkMailClient() {
-        return new NetworkMailClient();
+    protected INetworkMailClient provideNetworkMailClient(ICredentialsProvider prov) {
+        return new NetworkMailClient(prov);
     }
 }
