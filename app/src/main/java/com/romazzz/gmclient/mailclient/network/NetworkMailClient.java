@@ -11,12 +11,14 @@ import com.google.api.client.repackaged.org.apache.commons.codec.binary.Base64;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.model.Message;
 import com.romazzz.gmclient.mailclient.IMessage;
+import com.romazzz.gmclient.mailclient.gapi.ICredentialsProvider;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
+import javax.inject.Inject;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
@@ -30,8 +32,15 @@ public class NetworkMailClient implements INetworkMailClient {
     private final static String TAG = NetworkMailClient.class.getSimpleName();
 
     private Gmail mService = null;
+    ICredentialsProvider mCredentialsProvider;
 
-    public NetworkMailClient(GoogleAccountCredential credential) {
+    @Inject
+    public NetworkMailClient(ICredentialsProvider credProv) {
+        mCredentialsProvider = credProv;
+        initService(mCredentialsProvider.getCredentials());
+    }
+
+    private void initService(GoogleAccountCredential credential) {
         HttpTransport transport = AndroidHttp.newCompatibleTransport();
         JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
         mService = new com.google.api.services.gmail.Gmail.Builder(
@@ -39,7 +48,6 @@ public class NetworkMailClient implements INetworkMailClient {
                 .setApplicationName("Gmail API Android Quickstart")
                 .build();
     }
-
 
     private void sendMessageWithApi() throws IOException {
         String user = "me";
