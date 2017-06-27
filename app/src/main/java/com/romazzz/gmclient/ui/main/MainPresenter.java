@@ -103,7 +103,8 @@ public class MainPresenter implements IMainPresenter {
 //                    subscribeOn(Schedulers.io()).
 //                    observeOn(AndroidSchedulers.mainThread()).
 //                    subscribe(new GetMessageObserver());
-            sendMessageTestMethod();
+//            sendMessageTestMethod();
+            Log.d(TAG, "SUCCESS");
         }
     }
 
