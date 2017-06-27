@@ -5,6 +5,7 @@ import com.romazzz.gmclient.mailclient.localclient.ILocalClient;
 import com.romazzz.gmclient.mailclient.localclient.IMessageStorage;
 import com.romazzz.gmclient.mailclient.network.INetworkMailClient;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -27,7 +28,7 @@ public class MailClient implements IMailClient {
     }
 
     @Override
-    public void send(IMessage message) {
+    public void send(IMessage message) throws IOException {
         addToLocalStorage(message);
         sendWithNetworkClient(message);
     }
@@ -41,7 +42,7 @@ public class MailClient implements IMailClient {
         mMessageStorage.saveMessage(message);
     }
 
-    protected void sendWithNetworkClient(IMessage message) {
+    protected void sendWithNetworkClient(IMessage message) throws IOException {
         mNetworkMailClient.send(message);
     }
 
