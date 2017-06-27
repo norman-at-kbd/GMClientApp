@@ -5,6 +5,8 @@ import android.content.Context;
 import com.romazzz.gmclient.GCApp;
 import com.romazzz.gmclient.di.PerAppScope;
 import com.romazzz.gmclient.domain.IGetMessageListInteractor;
+import com.romazzz.gmclient.domain.IMessageSendInteractor;
+import com.romazzz.gmclient.domain.MessageSendInteractor;
 import com.romazzz.gmclient.mailclient.gapi.CredentialsProvider;
 import com.romazzz.gmclient.mailclient.gapi.GApiAvalibility;
 import com.romazzz.gmclient.mailclient.gapi.GApiHelper;
@@ -14,6 +16,7 @@ import com.romazzz.gmclient.mailclient.IMessage;
 import com.romazzz.gmclient.mailclient.gapi.IGApiHelper;
 import com.romazzz.gmclient.mailclient.gapi.IPermissions;
 import com.romazzz.gmclient.mailclient.gapi.Permissions;
+import com.romazzz.gmclient.mailclient.network.INetworkMailClient;
 
 import java.util.Collection;
 
@@ -51,6 +54,12 @@ public class AppModule {
                 return null;
             }
         };
+    }
+
+    @Provides
+    @PerAppScope
+    IMessageSendInteractor provideSendMessageInteractor(INetworkMailClient client) {
+        return new MessageSendInteractor(client);
     }
 
     @Provides
