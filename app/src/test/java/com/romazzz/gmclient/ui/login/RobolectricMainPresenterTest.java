@@ -16,6 +16,7 @@ import com.romazzz.gmclient.di.component.DaggerViewComponent;
 import com.romazzz.gmclient.di.component.ViewComponent;
 import com.romazzz.gmclient.di.module.ViewModule;
 import com.romazzz.gmclient.domain.IGetMessageListInteractor;
+import com.romazzz.gmclient.domain.IMessageSendInteractor;
 import com.romazzz.gmclient.mailclient.IMessage;
 import com.romazzz.gmclient.mailclient.TestMessageBuilder;
 import com.romazzz.gmclient.mailclient.gapi.ICredentialsProvider;
@@ -61,6 +62,8 @@ public class RobolectricMainPresenterTest {
     IGApiHelper mockGapiHelper;
     @Mock
     IGetMessageListInteractor mockGetMessageListInteractor;
+    @Mock
+    IMessageSendInteractor mockSendMessageInteractor;
 
     MainPresenter MainPresenter;
 
@@ -71,7 +74,10 @@ public class RobolectricMainPresenterTest {
         mockMainView = mock(IMainView.class);
         mockGapiHelper = mock(IGApiHelper.class);
         mockGetMessageListInteractor = mock(IGetMessageListInteractor.class);
-        MainPresenter = new MainPresenter(mockGetMessageListInteractor, mockGapiHelper);
+        mockSendMessageInteractor = mock(IMessageSendInteractor.class);
+        MainPresenter = new MainPresenter(mockGetMessageListInteractor,
+                mockGapiHelper,
+                mockSendMessageInteractor);
         MainPresenter.onAttach(mockMainView);
     }
 

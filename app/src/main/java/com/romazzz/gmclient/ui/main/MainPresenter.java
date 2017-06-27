@@ -11,6 +11,7 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlaySe
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.romazzz.gmclient.GCApp;
 import com.romazzz.gmclient.domain.IGetMessageListInteractor;
+import com.romazzz.gmclient.domain.IMessageSendInteractor;
 import com.romazzz.gmclient.domain.MessageSendInteractor;
 import com.romazzz.gmclient.mailclient.gapi.ICredentialsProvider;
 import com.romazzz.gmclient.mailclient.IMessage;
@@ -37,11 +38,13 @@ public class MainPresenter implements IMainPresenter {
     WeakReference<IMainView> mView;
     IGetMessageListInteractor getMessageListInteractor;
     IGApiHelper mGApiHelper;
+    IMessageSendInteractor mSendInteractor;
 
     public MainPresenter(IGetMessageListInteractor interactor,
-                         IGApiHelper gApiHelper) {
+                         IGApiHelper gApiHelper, IMessageSendInteractor sendInteractor) {
         getMessageListInteractor = interactor;
         mGApiHelper = gApiHelper;
+        mSendInteractor = sendInteractor;
     }
 
     @Override
@@ -96,11 +99,35 @@ public class MainPresenter implements IMainPresenter {
         } else if (mGApiHelper.getAccountName() == null) {
             chooseAccount();
         } else {
-            getMessageListInteractor.getMessagesList().
-                    subscribeOn(Schedulers.io()).
-                    observeOn(AndroidSchedulers.mainThread()).
-                    subscribe(new GetMessageObserver());
+//            getMessageListInteractor.getMessagesList().
+//                    subscribeOn(Schedulers.io()).
+//                    observeOn(AndroidSchedulers.mainThread()).
+//                    subscribe(new GetMessageObserver());
+            sendMessageTestMethod();
         }
+    }
+
+    private void sendMessageTestMethod() {
+        mSendInteractor.getSenderCompletable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Completable.CompletableSubscriber() {
+                    @Override
+                    public void onCompleted() {
+                        Log.d(TAG, "send message on completed");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d(TAG, "send message error " + e.toString());
+                        MainPresenter.this.onRequestMessagesError(e);
+                    }
+
+                    @Override
+                    public void onSubscribe(Subscription d) {
+                        Log.d(TAG, "onSubscribe");
+                    }
+                });
     }
 
     @AfterPermissionGranted(GCApp.REQUEST_PERMISSION_GET_ACCOUNTS)

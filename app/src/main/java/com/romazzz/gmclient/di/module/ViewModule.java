@@ -2,6 +2,7 @@ package com.romazzz.gmclient.di.module;
 
 import com.romazzz.gmclient.di.PerViewScope;
 import com.romazzz.gmclient.domain.IGetMessageListInteractor;
+import com.romazzz.gmclient.domain.IMessageSendInteractor;
 import com.romazzz.gmclient.mailclient.gapi.ICredentialsProvider;
 import com.romazzz.gmclient.mailclient.gapi.IGApiHelper;
 import com.romazzz.gmclient.ui.main.IMainPresenter;
@@ -19,7 +20,8 @@ public class ViewModule {
     @Provides
     @PerViewScope
     protected IMainPresenter getMainPresenter(IGetMessageListInteractor interactor,
-                                              IGApiHelper helper) {
-        return new MainPresenter(interactor, helper);
+                                              IGApiHelper helper,
+                                              IMessageSendInteractor sendInteractor) {
+        return new MainPresenter(interactor, helper, sendInteractor);
     }
 }

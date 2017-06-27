@@ -3,6 +3,7 @@ package com.romazzz.gmclient.ui.login;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.romazzz.gmclient.domain.IGetMessageListInteractor;
+import com.romazzz.gmclient.domain.IMessageSendInteractor;
 import com.romazzz.gmclient.mailclient.IMessage;
 import com.romazzz.gmclient.mailclient.gapi.ICredentialsProvider;
 import com.romazzz.gmclient.mailclient.gapi.IGApiHelper;
@@ -35,13 +36,16 @@ public class MainPresenterTest {
     IGApiHelper mockGapiHelper;
     @Mock
     IGetMessageListInteractor mockGetMessageListInteractor;
+    @Mock
+    IMessageSendInteractor mockSendMessageInteractor;
 
     MainPresenter MainPresenter;
 
     @Before
     public void init(){
         MockitoAnnotations.initMocks(this);
-        MainPresenter = new MainPresenter(mockGetMessageListInteractor, mockGapiHelper);
+        MainPresenter = new MainPresenter(mockGetMessageListInteractor, mockGapiHelper,
+                mockSendMessageInteractor);
         MainPresenter.onAttach(mockMainView);
     }
 

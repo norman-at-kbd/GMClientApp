@@ -1,15 +1,18 @@
 package com.romazzz.gmclient.mailclient;
 
-import com.romazzz.gmclient.di.component.DaggerMailClientComponent;
+import com.romazzz.gmclient.di.component.AppComponent;
+import com.romazzz.gmclient.di.component.DaggerAppComponent;
 import com.romazzz.gmclient.mailclient.localclient.IMessageStorage;
 import com.romazzz.gmclient.mailclient.network.INetworkMailClient;
 import com.romazzz.gmclient.mailclient.network.NetworkMailClient;
 
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -24,6 +27,10 @@ public class MailClientTest {
     public boolean isMailSent = false;
 
     class TestNetworkClient extends NetworkMailClient {
+
+        public TestNetworkClient () {
+            super(null);
+        }
 
         @Override
         public void login() {
@@ -55,14 +62,18 @@ public class MailClientTest {
     @Test
     public void dependencyGraphTest() {
         TestNetworkMailClientModule mockedNetMailClientModule = mock(TestNetworkMailClientModule.class);
-        when(mockedNetMailClientModule.provideNetworkMailClient()).thenReturn(new TestNetworkClient());
+        when(mockedNetMailClientModule.provideNetworkMailClient(any())).thenReturn(new TestNetworkClient());
 
 //        TestMailClientModule mockMailClientModule = mock(TestMailClientModule.class);
 //        when(mockMailClientModule.provideMailClient(INetworkMailClient network, ))
-        IMailClient mailClient= DaggerMailClientComponent.
+        IMailClient mailClient= DaggerAppComponent.
                 builder().networkMailClientModule(mockedNetMailClientModule).build().getMailClient();
         mailClient.login();
-        mailClient.send(new Message("f","t","s","t"));
+        try {
+            mailClient.send(new Message("f", "t", "s", "t"));
+        } catch (IOException exception) {
+
+        }
         assertTrue(isLoginCalled);
         assertTrue(isMailSent);
     }
