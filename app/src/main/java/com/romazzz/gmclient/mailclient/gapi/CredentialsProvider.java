@@ -38,7 +38,7 @@ public class CredentialsProvider implements ICredentialsProvider {
 
     @Override
     public String getAccountName() {
-        String accName = mCredential.getSelectedAccountName();
+        String accName = getCredentials().getSelectedAccountName();
         if(accName == null)
             accName = mContext.getSharedPreferences(GMAIL_API_TEST_SHAREDS, Context.MODE_PRIVATE)
                     .getString(PREF_ACCOUNT_NAME,null);
