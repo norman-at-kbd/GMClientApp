@@ -17,6 +17,7 @@ import static android.app.Activity.RESULT_OK;
  */
 
 public class GApiHelper implements IGApiHelper {
+    private static final String TAG = GApiHelper.class.getSimpleName();
     ICredentialsProvider mCredentialsProvider;
     IPermissions mPermissions;
     IGApiAvalability mGApiAvalibility;
@@ -35,6 +36,7 @@ public class GApiHelper implements IGApiHelper {
                                           Intent data) {
         switch (requestCode) {
             case GCApp.REQUEST_GOOGLE_PLAY_SERVICES:
+                Log.d(TAG, "REQUEST_GOOGLE_PLAY_SERVICES");
                 if (resultCode != RESULT_OK) {
 //                    mView.get().showOutputText(
 //                            "This app requires Google Play Services. Please install " +
@@ -46,6 +48,7 @@ public class GApiHelper implements IGApiHelper {
                 }
                 break;
             case GCApp.REQUEST_ACCOUNT_PICKER:
+                Log.d(TAG, "REQUEST_ACCOUNT_PICKER");
                 if (resultCode == RESULT_OK && data != null &&
                         data.getExtras() != null) {
                     String accountName =
@@ -57,6 +60,7 @@ public class GApiHelper implements IGApiHelper {
                 }
                 break;
             case GCApp.REQUEST_AUTHORIZATION:
+                Log.d(TAG, "REQUEST_AUTHORIZATION");
                 if (resultCode == RESULT_OK) {
                     requestSuccess.onSuccess();
                 }
@@ -66,31 +70,37 @@ public class GApiHelper implements IGApiHelper {
 
     @Override
     public void acquireGooglePlayServices() {
+        Log.d(TAG, "acquireGooglePlayServices");
         mGApiAvalibility.acquireGooglePlayServices();
     }
 
     @Override
     public void chooseAccount(@NonNull onAccountChosen accc, @NonNull pickUpAccount pick, @NonNull Object obj) {
+        Log.d(TAG, "chooseAccount");
         mPermissions.chooseAccount(accc, pick, obj);
     }
 
     @Override
     public boolean isGooglePlayServicesAvailable() {
+        Log.d(TAG, "isGooglePlayServicesAvailable");
         return mGApiAvalibility.isGooglePlayServicesAvailable();
     }
 
     @Override
     public GoogleAccountCredential getCredentials() {
+        Log.d(TAG, "getCredentials");
         return mCredentialsProvider.getCredentials();
     }
 
     @Override
     public String getAccountName() {
+        Log.d(TAG, "getAccountName");
         return mCredentialsProvider.getAccountName();
     }
 
     @Override
     public void setAccountName(String name) {
+        Log.d(TAG, "isGooglePlayServicesAvailable");
         mCredentialsProvider.setAccountName(name);
     }
 }
