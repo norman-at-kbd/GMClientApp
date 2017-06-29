@@ -2,20 +2,11 @@ package com.romazzz.gmclient.domain;
 
 import android.util.Log;
 
-import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
-import com.google.api.client.repackaged.org.apache.commons.codec.binary.Base64;
-import com.google.api.services.gmail.model.Message;
 import com.romazzz.gmclient.mailclient.network.INetworkMailClient;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Properties;
 
 import javax.inject.Inject;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 import rx.Completable;
 
@@ -23,12 +14,12 @@ import rx.Completable;
  * Created by z01tan on 6/5/17.
  */
 
-public class MessageSendInteractor implements IMessageSendInteractor {
+public class SendMessageInteractor implements ISendMessageInteractor {
     private static final String TAG = GetMessageListInteractor.class.getSimpleName();
 
     INetworkMailClient mNmailClient;
     @Inject
-    public MessageSendInteractor(INetworkMailClient client) {
+    public SendMessageInteractor(INetworkMailClient client) {
         mNmailClient = client;
     }
 

@@ -6,12 +6,11 @@ import com.romazzz.gmclient.di.module.MailClientModule;
 import com.romazzz.gmclient.di.module.MessageStorageModule;
 import com.romazzz.gmclient.di.module.NetworkMailClientModule;
 import com.romazzz.gmclient.domain.IGetMessageListInteractor;
-import com.romazzz.gmclient.domain.IMessageSendInteractor;
+import com.romazzz.gmclient.domain.ISendMessageInteractor;
 import com.romazzz.gmclient.mailclient.IMailClient;
 import com.romazzz.gmclient.mailclient.gapi.ICredentialsProvider;
 import com.romazzz.gmclient.mailclient.gapi.IGApiHelper;
 import com.romazzz.gmclient.mailclient.localclient.IMessageStorage;
-import com.romazzz.gmclient.mailclient.network.INetworkMailClient;
 import com.romazzz.gmclient.ui.main.MainPresenter;
 
 import dagger.Component;
@@ -31,6 +30,6 @@ public interface AppComponent {
     IGetMessageListInteractor getMessageListInteractor();
     IGApiHelper getGApiHelper();
     IMailClient getMailClient();
-    IMessageSendInteractor getMessageSendInteractor();
+    ISendMessageInteractor getSendMessageInteractor();
     IMessageStorage getMessageStorage();
 }
