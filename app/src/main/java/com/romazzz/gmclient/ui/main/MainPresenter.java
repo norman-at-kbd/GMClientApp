@@ -93,7 +93,7 @@ public class MainPresenter implements IMainPresenter {
     public void requestMessages() {
         if (!mGApiHelper.isGooglePlayServicesAvailable()) {
             mGApiHelper.acquireGooglePlayServices();
-        } else if (mGApiHelper.getAccountName() == null) {
+        } else if (mGApiHelper.getCredentials().getSelectedAccountName() == null) {
             chooseAccount();
         } else {
             getMessageListInteractor.getMessagesList().
