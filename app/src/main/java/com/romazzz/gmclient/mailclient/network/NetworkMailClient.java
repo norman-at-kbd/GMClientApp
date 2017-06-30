@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.mail.MessagingException;
@@ -126,6 +127,7 @@ public class NetworkMailClient implements INetworkMailClient {
 //        while (response.getMessages() != null) {
             messages.addAll(response.getMessages());
 //        }
-        return null;
+        return messages.stream().
+                map(com.romazzz.gmclient.mailclient.Message::convert).collect(Collectors.toList());
     }
 }
