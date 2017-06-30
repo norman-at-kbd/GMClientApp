@@ -10,5 +10,5 @@ import java.util.List;
 public interface ICommonMailClient {
     void login();
     void send(IMessage message) throws IOException;
-    List<IMessage> getList();
+    List<IMessage> getList() throws IOException;
 }
