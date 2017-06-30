@@ -9,12 +9,14 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.repackaged.org.apache.commons.codec.binary.Base64;
 import com.google.api.services.gmail.Gmail;
+import com.google.api.services.gmail.model.ListMessagesResponse;
 import com.google.api.services.gmail.model.Message;
 import com.romazzz.gmclient.mailclient.IMessage;
 import com.romazzz.gmclient.mailclient.gapi.ICredentialsProvider;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -64,7 +66,7 @@ public class NetworkMailClient implements INetworkMailClient {
         }
     }
 
-    public static void sendMessage(com.google.api.services.gmail.Gmail service,
+    private static void sendMessage(com.google.api.services.gmail.Gmail service,
                                    String userId, MimeMessage email)
             throws MessagingException, IOException {
         Message message = createMessageWithEmail(email);
@@ -74,7 +76,7 @@ public class NetworkMailClient implements INetworkMailClient {
         System.out.println(message.toPrettyString());
     }
 
-    public static Message createMessageWithEmail(MimeMessage email)
+    private static Message createMessageWithEmail(MimeMessage email)
             throws MessagingException, IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         email.writeTo(baos);
@@ -84,7 +86,7 @@ public class NetworkMailClient implements INetworkMailClient {
         return message;
     }
 
-    public static MimeMessage createEmail(String to, String from, String subject,
+    private static MimeMessage createEmail(String to, String from, String subject,
                                           String bodyText) throws MessagingException {
         Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
@@ -117,7 +119,13 @@ public class NetworkMailClient implements INetworkMailClient {
     }
 
     @Override
-    public List<IMessage> getList() {
+    public List<IMessage> getList() throws IOException {
+        ListMessagesResponse response = mService.users().messages().
+                list("me").setQ("").execute();
+        List<Message> messages = new ArrayList<>();
+//        while (response.getMessages() != null) {
+            messages.addAll(response.getMessages());
+//        }
         return null;
     }
 }
