@@ -82,4 +82,8 @@ public class Message implements IMessage {
 
         return this.getID() == other.getID();
     }
+
+    public static Message convert(com.google.api.services.gmail.model.Message message ) {
+        return new Message(message);
+    }
 }
