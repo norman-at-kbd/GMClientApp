@@ -1,16 +1,18 @@
 package com.romazzz.gmclient.mailclient;
 
+import com.google.api.services.gmail.model.MessagePartHeader;
+
 /**
  * Created by z01tan on 15/04/2017.
  */
 
 public class Message implements IMessage {
     private static int MESSAGE_COUNTER = 0;
-    private final String mFrom;
-    private final String mTo;
-    private final String mSubject;
-    private final String mText;
-    private final String mID;
+    private String mFrom = "";
+    private String mTo = "";
+    private String mSubject = "";
+    private String mText = "";
+    private String mID = "";
     private boolean mIsUnread;
     private boolean mIsSent;
 
@@ -21,6 +23,20 @@ public class Message implements IMessage {
         this.mTo = to;
         this.mSubject = subject;
         this.mText = text;
+    }
+
+    public Message(com.google.api.services.gmail.model.Message googleMessage) {
+        mID = googleMessage.getId();
+        for(MessagePartHeader header : googleMessage.getPayload().getHeaders()) {
+            if(header.getName().toLowerCase().equals("to"))
+                mTo = header.getValue();
+            if(header.getName().toLowerCase().equals("from"))
+                mFrom = header.getValue();
+            if(header.getName().toLowerCase().equals("subject"))
+                mSubject = header.getValue();
+            if(header.getName().toLowerCase().equals("from"))
+                mFrom = header.getValue();
+        }
     }
 
     @Override
