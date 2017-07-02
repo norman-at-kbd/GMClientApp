@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -28,6 +29,8 @@ import pub.devrel.easypermissions.EasyPermissions;
  */
 
 public class MainView extends BaseActivity implements IMainView {
+    private static final String TAG = MainView.class.getSimpleName();
+
     @Inject
     IMainPresenter mPresenter;
 
@@ -64,7 +67,8 @@ public class MainView extends BaseActivity implements IMainView {
 
     @Override
     public void showMessages(Collection<IMessage> messages) {
-
+        for(IMessage msg : messages)
+            Log.d(TAG, msg.getFrom());
     }
 
     @OnClick(R.id.login_btn)
