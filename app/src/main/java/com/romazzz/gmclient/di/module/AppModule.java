@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.romazzz.gmclient.GCApp;
 import com.romazzz.gmclient.di.PerAppScope;
+import com.romazzz.gmclient.domain.GetMessageListInteractor;
 import com.romazzz.gmclient.domain.IGetMessageListInteractor;
 import com.romazzz.gmclient.domain.ISendMessageInteractor;
 import com.romazzz.gmclient.domain.SendMessageInteractor;
@@ -47,13 +48,8 @@ public class AppModule {
     @Provides
     @PerAppScope
     protected
-    IGetMessageListInteractor provideGetMessageInteractor() {
-        return new IGetMessageListInteractor() {
-            @Override
-            public Observable<Collection<IMessage>> getMessagesList() {
-                return null;
-            }
-        };
+    IGetMessageListInteractor provideGetMessageInteractor(INetworkMailClient mailClient) {
+        return new GetMessageListInteractor(mailClient);
     }
 
     @Provides
