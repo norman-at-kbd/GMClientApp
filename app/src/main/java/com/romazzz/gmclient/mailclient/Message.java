@@ -1,12 +1,17 @@
 package com.romazzz.gmclient.mailclient;
 
+import android.util.Log;
+
 import com.google.api.services.gmail.model.MessagePartHeader;
+
+import java.io.IOException;
 
 /**
  * Created by z01tan on 15/04/2017.
  */
 
 public class Message implements IMessage {
+    private static final String TAG = Message.class.getSimpleName();
     private static int MESSAGE_COUNTER = 0;
     private String mFrom = "";
     private String mTo = "";
@@ -26,6 +31,9 @@ public class Message implements IMessage {
     }
 
     public Message(com.google.api.services.gmail.model.Message googleMessage) {
+        try {
+            Log.d(TAG, "googleMessage " + googleMessage.toPrettyString());
+        } catch (IOException e) {}
         mID = googleMessage.getId();
         for(MessagePartHeader header : googleMessage.getPayload().getHeaders()) {
             if(header.getName().toLowerCase().equals("to"))
