@@ -27,6 +27,8 @@ import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import rx.Single;
+
 /**
  * Created by z01tan on 4/16/17.
  */
@@ -120,14 +122,26 @@ public class NetworkMailClient implements INetworkMailClient {
     }
 
     @Override
+    //TODO do something about this method, maybe it should return Observable
     public List<IMessage> getList() throws IOException {
+//        Log.d(TAG, "GET MESSAGES REQUEST " +messages.size());
+//        return messages.stream().
+//                map(com.romazzz.gmclient.mailclient.Message::convert).collect(Collectors.toList());
+        return null;
+    }
+
+    @Override
+    public List<Message> getGoogleMessageList() throws IOException {
         ListMessagesResponse response = mService.users().messages().
                 list("me").setQ("").execute();
         List<Message> messages = new ArrayList<>();
 //        while (response.getMessages() != null) {
-            messages.addAll(response.getMessages());
-//        }
-        return messages.stream().
-                map(com.romazzz.gmclient.mailclient.Message::convert).collect(Collectors.toList());
+        messages.addAll(response.getMessages());
+        return messages;
+    }
+
+    @Override
+    public Message getMessageById(String messageId) throws IOException {
+        return mService.users().messages().get("me",messageId).execute();
     }
 }
