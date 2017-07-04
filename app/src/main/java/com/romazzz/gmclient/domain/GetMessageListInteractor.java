@@ -38,11 +38,15 @@ public class GetMessageListInteractor implements IGetMessageListInteractor {
         });
     }
 
-    private Observable<Collection<Message>> getMessages() {
+//    private Observable<Message> getMessages() {
+//        getMessagesIds().flatMap();
+//    }
+
+    private Observable<Message> getMessagesIds() {
         return Observable.create(subscriber -> {
             try {
                 List<Message> messages = mNMailClient.getGoogleMessageList();
-                subscriber.onNext(messages);
+                messages.forEach( message -> subscriber.onNext(message));
             } catch (IOException e) {
                 subscriber.onError(e);
             }
