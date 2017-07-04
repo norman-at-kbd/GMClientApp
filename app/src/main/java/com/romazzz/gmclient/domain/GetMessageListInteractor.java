@@ -1,15 +1,18 @@
 package com.romazzz.gmclient.domain;
 
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.google.api.services.gmail.model.Message;
 import com.romazzz.gmclient.mailclient.IMessage;
 import com.romazzz.gmclient.mailclient.network.INetworkMailClient;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import rx.Observable;
+import rx.Single;
 import rx.Subscriber;
 
 /**
@@ -32,6 +35,29 @@ public class GetMessageListInteractor implements IGetMessageListInteractor {
                     subscriber.onError(e);
                 }
                 subscriber.onCompleted();
+        });
+    }
+
+    private Observable<Collection<Message>> getMessages() {
+        return Observable.create(subscriber -> {
+            try {
+                List<Message> messages = mNMailClient.getGoogleMessageList();
+                subscriber.onNext(messages);
+            } catch (IOException e) {
+                subscriber.onError(e);
+            }
+            subscriber.onCompleted();
+        });
+    }
+
+    private Single<Message> getMessage(String messageId) {
+        return Single.create(singleSubscriber -> {
+            try {
+                Message message = mNMailClient.getMessageById(messageId);
+                singleSubscriber.onSuccess(message);
+            } catch (IOException e) {
+                singleSubscriber.onError(e);
+            }
         });
     }
 }
