@@ -20,8 +20,8 @@ public class CredentialsProvider implements ICredentialsProvider {
     private static final String GMAIL_API_TEST_SHAREDS = "GMAIL_API_TEST_SHAREDS";
     Context mContext;
     GoogleAccountCredential mCredential;
-    private static final String[] SCOPES = GmailScopes.all()
-            .toArray(new String[GmailScopes.all().size()]);
+    private static final String[] SCOPES = {GmailScopes.MAIL_GOOGLE_COM};//GmailScopes.all()
+            //.toArray(new String[GmailScopes.all().size()]);
 
     @Inject
     public CredentialsProvider(Context context) {
