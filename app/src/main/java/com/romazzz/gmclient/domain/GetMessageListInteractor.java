@@ -1,5 +1,7 @@
 package com.romazzz.gmclient.domain;
 
+import android.util.Log;
+
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.services.gmail.model.Message;
 import com.romazzz.gmclient.mailclient.IMessage;
@@ -14,7 +16,9 @@ import javax.inject.Inject;
 import rx.Observable;
 import rx.Single;
 import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by z01tan on 6/4/17.
@@ -29,6 +33,7 @@ public class GetMessageListInteractor implements IGetMessageListInteractor {
 
     @Override
     public Observable<Collection<IMessage>> getMessagesList() {
+        getMessages();
         return Observable.create(subscriber ->  {
                 try {
                     subscriber.onNext(mNMailClient.getList());
@@ -39,14 +44,18 @@ public class GetMessageListInteractor implements IGetMessageListInteractor {
         });
     }
 
-    private Observable<Message> getMessages() {
-        return getMessagesIds().flatMap(message -> getMessageByObservable(message.getId()));
+    private void getMessages() {
+        getMessagesIds().
+                flatMap(message -> getMessageByObservable(message.getId())).
+                subscribeOn(Schedulers.io()).
+                subscribe(message -> Log.d("TEST_TAG", message.getThreadId()));
     }
 
     private Observable<Message> getMessagesIds() {
         return Observable.create(subscriber -> {
             try {
                 List<Message> messages = mNMailClient.getGoogleMessageList();
+                Log.d("GetMEssagesList","messages size : " +messages.size() );
                 messages.forEach( message -> subscriber.onNext(message));
             } catch (IOException e) {
                 subscriber.onError(e);

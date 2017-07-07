@@ -13,6 +13,7 @@ import com.google.api.services.gmail.model.ListMessagesResponse;
 import com.google.api.services.gmail.model.Message;
 import com.romazzz.gmclient.mailclient.IMessage;
 import com.romazzz.gmclient.mailclient.gapi.ICredentialsProvider;
+import com.romazzz.gmclient.ui.main.MainView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -124,16 +125,18 @@ public class NetworkMailClient implements INetworkMailClient {
     @Override
     //TODO do something about this method, maybe it should return Observable
     public List<IMessage> getList() throws IOException {
-//        Log.d(TAG, "GET MESSAGES REQUEST " +messages.size());
 //        return messages.stream().
 //                map(com.romazzz.gmclient.mailclient.Message::convert).collect(Collectors.toList());
-        return null;
+        ArrayList<IMessage> messages = new ArrayList<>();
+        messages.add(new com.romazzz.gmclient.mailclient.Message("from","to", "subject", "text"));
+        return messages;
     }
 
     @Override
     public List<Message> getGoogleMessageList() throws IOException {
         ListMessagesResponse response = mService.users().messages().
                 list("me").setQ("").execute();
+        Log.d(TAG , "response size: "+response.size());
         List<Message> messages = new ArrayList<>();
 //        while (response.getMessages() != null) {
         messages.addAll(response.getMessages());
