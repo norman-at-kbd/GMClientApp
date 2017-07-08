@@ -8,6 +8,7 @@ import com.romazzz.gmclient.mailclient.IMessage;
 import com.romazzz.gmclient.mailclient.network.INetworkMailClient;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -33,17 +34,22 @@ public class GetMessageListInteractor implements IGetMessageListInteractor {
 
     @Override
     public Observable<Collection<IMessage>> getMessagesList() {
-
-        return Observable.create(subscriber ->  {
-                try {
-                    getMessages();
-                    subscriber.onNext(mNMailClient.getList());
-                } catch (Exception e) {
-                    subscriber.onError(e);
-                }
-                subscriber.onCompleted();
+//
+//        return Observable.create(subscriber ->  {
+//                try {
+//                    getMessages();
+//                    subscriber.onNext(mNMailClient.getList());
+//                } catch (Exception e) {
+//                    subscriber.onError(e);
+//                }
+//                subscriber.onCompleted();
+//        });
+        ArrayList<IMessage> messages = new ArrayList<>();
+        return getMessagesIds().reduce(messages, (iMessages, message) -> {
+            iMessages.add(new com.romazzz.gmclient.mailclient.Message("message_"+message.getId(),
+                    "to","subject","test"));
+            return iMessages;
         });
-
     }
 
     private void getMessages() throws Exception{
