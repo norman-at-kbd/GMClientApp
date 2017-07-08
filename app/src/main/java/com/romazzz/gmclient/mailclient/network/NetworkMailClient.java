@@ -133,7 +133,7 @@ public class NetworkMailClient implements INetworkMailClient {
     }
 
     @Override
-    public List<Message> getGoogleMessageList() throws IOException {
+    public List<Message> getGoogleMessageList() throws Exception {
         ListMessagesResponse response = mService.users().messages().
                 list("me").setQ("").execute();
         Log.d(TAG , "response size: "+response.size());
@@ -144,7 +144,7 @@ public class NetworkMailClient implements INetworkMailClient {
     }
 
     @Override
-    public Message getMessageById(String messageId) throws IOException {
+    public Message getMessageById(String messageId) throws Exception {
         return mService.users().messages().get("me",messageId).execute();
     }
 }

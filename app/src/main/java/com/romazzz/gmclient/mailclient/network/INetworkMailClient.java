@@ -13,6 +13,6 @@ import java.util.List;
 
 public interface INetworkMailClient extends ICommonMailClient{
     void delete(String messageID);
-    List<Message> getGoogleMessageList() throws IOException;
-    Message getMessageById(String messageId) throws IOException;
+    List<Message> getGoogleMessageList() throws Exception;
+    Message getMessageById(String messageId) throws Exception;
 }

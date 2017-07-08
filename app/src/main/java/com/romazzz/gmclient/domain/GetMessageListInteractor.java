@@ -33,18 +33,20 @@ public class GetMessageListInteractor implements IGetMessageListInteractor {
 
     @Override
     public Observable<Collection<IMessage>> getMessagesList() {
-        getMessages();
+
         return Observable.create(subscriber ->  {
                 try {
+                    getMessages();
                     subscriber.onNext(mNMailClient.getList());
-                } catch (IOException e) {
+                } catch (Exception e) {
                     subscriber.onError(e);
                 }
                 subscriber.onCompleted();
         });
+
     }
 
-    private void getMessages() {
+    private void getMessages() throws Exception{
         getMessagesIds().
                 flatMap(message -> getMessageByObservable(message.getId())).
                 subscribeOn(Schedulers.io()).
@@ -57,7 +59,7 @@ public class GetMessageListInteractor implements IGetMessageListInteractor {
                 List<Message> messages = mNMailClient.getGoogleMessageList();
                 Log.d("GetMEssagesList","messages size : " +messages.size() );
                 messages.forEach( message -> subscriber.onNext(message));
-            } catch (IOException e) {
+            } catch (Exception e) {
                 subscriber.onError(e);
             }
             subscriber.onCompleted();
@@ -69,7 +71,7 @@ public class GetMessageListInteractor implements IGetMessageListInteractor {
             try {
                 Message message = mNMailClient.getMessageById(messageId);
                 singleSubscriber.onSuccess(message);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 singleSubscriber.onError(e);
             }
         });
@@ -80,7 +82,7 @@ public class GetMessageListInteractor implements IGetMessageListInteractor {
             try {
                 Message message = mNMailClient.getMessageById(messageId);
                 singleSubscriber.onNext(message);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 singleSubscriber.onError(e);
             }
             singleSubscriber.onCompleted();
