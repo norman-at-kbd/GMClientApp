@@ -139,7 +139,7 @@ public class NetworkMailClient implements INetworkMailClient {
         Log.d(TAG , "response size: "+response.size());
         List<Message> messages = new ArrayList<>();
 //        while (response.getMessages() != null) {
-        messages.addAll(response.getMessages());
+        messages.addAll(response.getMessages().subList(0,5));
         return messages;
     }
 
