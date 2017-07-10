@@ -145,6 +145,7 @@ public class NetworkMailClient implements INetworkMailClient {
 
     @Override
     public Message getMessageById(String messageId) throws Exception {
-        return mService.users().messages().get("me",messageId).execute();
+        return mService.users().messages().get("me",messageId)
+                .setFormat("FULL").execute();
     }
 }
