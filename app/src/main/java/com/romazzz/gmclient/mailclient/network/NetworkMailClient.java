@@ -133,9 +133,9 @@ public class NetworkMailClient implements INetworkMailClient {
     }
 
     @Override
-    public List<Message> getGoogleMessageList() throws Exception {
+    public List<Message> getGoogleMessageList(String query) throws Exception {
         ListMessagesResponse response = mService.users().messages().
-                list("me").setQ("").execute();
+                list("me").setQ(query).execute();
         Log.d(TAG , "response size: "+response.size());
         List<Message> messages = new ArrayList<>();
 //        while (response.getMessages() != null) {

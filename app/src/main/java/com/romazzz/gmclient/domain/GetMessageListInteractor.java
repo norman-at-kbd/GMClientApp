@@ -50,6 +50,7 @@ public class GetMessageListInteractor implements IGetMessageListInteractor {
                 reduce(messages, (iMessages, message) -> {
                     try {
                         Log.d("MESSAGES", "msg: "+message.toPrettyString());
+                        Log.d("MESSAGES", "raw: "+message.getRaw());
                     }catch (IOException e) {
                         Log.d("message: ", "IOException " + e.toString());
                     }
@@ -69,7 +70,7 @@ public class GetMessageListInteractor implements IGetMessageListInteractor {
     private Observable<Message> getMessagesIds() {
         return Observable.create(subscriber -> {
             try {
-                List<Message> messages = mNMailClient.getGoogleMessageList();
+                List<Message> messages = mNMailClient.getGoogleMessageList("");
                 Log.d("GetMEssagesList","messages size : " +messages.size() );
                 messages.forEach( message -> subscriber.onNext(message));
             } catch (Exception e) {
