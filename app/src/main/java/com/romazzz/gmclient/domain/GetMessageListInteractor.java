@@ -1,5 +1,6 @@
 package com.romazzz.gmclient.domain;
 
+import android.util.Base64;
 import android.util.Log;
 
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
@@ -9,6 +10,7 @@ import com.romazzz.gmclient.mailclient.network.INetworkMailClient;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -50,7 +52,7 @@ public class GetMessageListInteractor implements IGetMessageListInteractor {
                 reduce(messages, (iMessages, message) -> {
                     try {
                         Log.d("MESSAGES", "msg: "+message.toPrettyString());
-                        Log.d("MESSAGES", "raw: "+message.getRaw());
+                        Log.d("MESSAGES", "data: "+message.getPayload().getBody().getData());
                     }catch (IOException e) {
                         Log.d("message: ", "IOException " + e.toString());
                     }
