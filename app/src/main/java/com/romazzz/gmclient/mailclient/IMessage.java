@@ -12,4 +12,5 @@ public interface IMessage {
     String getTo();
     String getSubject();
     String getText();
+    String getSnippet();
 }

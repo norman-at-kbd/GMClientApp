@@ -18,16 +18,22 @@ public class Message implements IMessage {
     private String mSubject = "";
     private String mText = "";
     private String mID = "";
+    private String mSnippet = "";
     private boolean mIsUnread;
     private boolean mIsSent;
 
-    public Message(String from, String to, String subject, String text) {
+    public Message(String from, String to, String subject, String text, String snippet) {
         MESSAGE_COUNTER += 1;
-        this.mID = Integer.toString(MESSAGE_COUNTER);
-        this.mFrom = from;
-        this.mTo = to;
-        this.mSubject = subject;
-        this.mText = text;
+        mID = Integer.toString(MESSAGE_COUNTER);
+        mFrom = from;
+        mTo = to;
+        mSubject = subject;
+        mText = text;
+        mSnippet = snippet;
+    }
+
+    public Message(String from, String to, String subject, String text) {
+        this(from, to, subject, text, "");
     }
 
     public Message(com.google.api.services.gmail.model.Message googleMessage) {
@@ -80,6 +86,11 @@ public class Message implements IMessage {
     @Override
     public String getText() {
         return mText;
+    }
+
+    @Override
+    public String getSnippet() {
+        return mSnippet;
     }
 
     @Override
