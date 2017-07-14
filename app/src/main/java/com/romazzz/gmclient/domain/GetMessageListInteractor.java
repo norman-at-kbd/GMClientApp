@@ -50,14 +50,7 @@ public class GetMessageListInteractor implements IGetMessageListInteractor {
         return getMessagesIds().
                 flatMap(message -> getMessageByObservable(message.getId())).
                 reduce(messages, (iMessages, message) -> {
-                    try {
-                        Log.d("MESSAGES", "msg: "+message.toPrettyString());
-                        Log.d("MESSAGES", "data: "+message.getPayload().getBody().getData());
-                    }catch (IOException e) {
-                        Log.d("message: ", "IOException " + e.toString());
-                    }
-                    iMessages.add(new com.romazzz.gmclient.mailclient.Message("message_" + message.getId(),
-                            "to", "subject", "test"));
+                    iMessages.add(GoogleMessageToIMessageConverter.convert(message));
                     return iMessages;
                 });
     }
