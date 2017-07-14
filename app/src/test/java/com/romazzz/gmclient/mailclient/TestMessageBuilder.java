@@ -18,6 +18,7 @@ public class TestMessageBuilder {
         String to = "defaultTo";
         String subject = "defaultSubject";
         String text = "defaultText";
+        String snippet = "defaultSnippet";
 
         public MessageBuilder() {
             COUNT = 0;
@@ -86,6 +87,11 @@ public class TestMessageBuilder {
                 @Override
                 public String getText() {
                     return text;
+                }
+
+                @Override
+                public String getSnippet() {
+                    return snippet;
                 }
             };
         }
