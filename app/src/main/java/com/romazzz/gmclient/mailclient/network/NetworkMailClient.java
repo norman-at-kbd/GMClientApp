@@ -13,22 +13,18 @@ import com.google.api.services.gmail.model.ListMessagesResponse;
 import com.google.api.services.gmail.model.Message;
 import com.romazzz.gmclient.mailclient.IMessage;
 import com.romazzz.gmclient.mailclient.gapi.ICredentialsProvider;
-import com.romazzz.gmclient.ui.main.MainView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
-import rx.Single;
 
 /**
  * Created by z01tan on 4/16/17.
@@ -94,11 +90,7 @@ public class NetworkMailClient implements INetworkMailClient {
                                           String bodyText) throws MessagingException {
         Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
-
         MimeMessage email = new MimeMessage(session);
-        InternetAddress tAddress = new InternetAddress(to);
-        InternetAddress fAddress = new InternetAddress(from);
-
         email.setFrom(new InternetAddress(from));
         email.addRecipient(javax.mail.Message.RecipientType.TO,
                 new InternetAddress(to));
@@ -123,10 +115,7 @@ public class NetworkMailClient implements INetworkMailClient {
     }
 
     @Override
-    //TODO do something about this method, maybe it should return Observable
     public List<IMessage> getList() throws IOException {
-//        return messages.stream().
-//                map(com.romazzz.gmclient.mailclient.Message::convert).collect(Collectors.toList());
         ArrayList<IMessage> messages = new ArrayList<>();
         messages.add(new com.romazzz.gmclient.mailclient.Message("from","to", "subject", "text"));
         return messages;
@@ -136,9 +125,7 @@ public class NetworkMailClient implements INetworkMailClient {
     public List<Message> getGoogleMessageList(String query) throws Exception {
         ListMessagesResponse response = mService.users().messages().
                 list("me").setQ(query).execute();
-        Log.d(TAG , "response size: "+response.size());
         List<Message> messages = new ArrayList<>();
-//        while (response.getMessages() != null) {
         messages.addAll(response.getMessages().subList(0,5));
         return messages;
     }
