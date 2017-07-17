@@ -34,6 +34,7 @@ public class NetworkMailClient implements INetworkMailClient {
     private final static String TAG = NetworkMailClient.class.getSimpleName();
 
     private Gmail mService = null;
+    private String mUserID = "me";
     ICredentialsProvider mCredentialsProvider;
 
     @Inject
@@ -59,7 +60,7 @@ public class NetworkMailClient implements INetworkMailClient {
         String content = "gmail api test success !!!";
 
         try {
-            MimeMessage message = createEmail(to, from,subject,content);
+            MimeMessage message = createEmail(to, from, subject, content);
             sendMessage(mService, user, message);
         } catch (MessagingException e) {
             Log.d("SEND MESSAGE", "EXCEPTION " + e.toString());
@@ -67,7 +68,7 @@ public class NetworkMailClient implements INetworkMailClient {
     }
 
     private static void sendMessage(com.google.api.services.gmail.Gmail service,
-                                   String userId, MimeMessage email)
+                                    String userId, MimeMessage email)
             throws MessagingException, IOException {
         Message message = createMessageWithEmail(email);
         message = service.users().messages().send(userId, message).execute();
@@ -87,7 +88,7 @@ public class NetworkMailClient implements INetworkMailClient {
     }
 
     private static MimeMessage createEmail(String to, String from, String subject,
-                                          String bodyText) throws MessagingException {
+                                           String bodyText) throws MessagingException {
         Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
         MimeMessage email = new MimeMessage(session);
@@ -117,22 +118,31 @@ public class NetworkMailClient implements INetworkMailClient {
     @Override
     public List<IMessage> getList() throws IOException {
         ArrayList<IMessage> messages = new ArrayList<>();
-        messages.add(new com.romazzz.gmclient.mailclient.Message("from","to", "subject", "text"));
+        messages.add(new com.romazzz.gmclient.mailclient.Message("from", "to", "subject", "text"));
         return messages;
     }
 
     @Override
     public List<Message> getGoogleMessageList(String query) throws Exception {
         ListMessagesResponse response = mService.users().messages().
-                list("me").setQ(query).execute();
+                list(mUserID).setQ(query).execute();
         List<Message> messages = new ArrayList<>();
-        messages.addAll(response.getMessages().subList(0,5));
+        while (response.getMessages() != null) {
+            messages.addAll(response.getMessages());
+            if (response.getNextPageToken() != null) {
+                String pageToken = response.getNextPageToken();
+                response = mService.users().messages().list(mUserID).setQ(query)
+                        .setPageToken(pageToken).execute();
+            } else {
+                break;
+            }
+        }
         return messages;
     }
 
     @Override
     public Message getMessageById(String messageId) throws Exception {
-        return mService.users().messages().get("me",messageId)
+        return mService.users().messages().get("me", messageId)
                 .setFormat("FULL").execute();
     }
 }
