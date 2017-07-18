@@ -141,6 +141,25 @@ public class NetworkMailClient implements INetworkMailClient {
     }
 
     @Override
+    public List<Message> getGoogleMessageListWithLabels(List<String> labelIds) throws IOException {
+        ListMessagesResponse response = mService.users().messages().list(mUserID)
+                .setLabelIds(labelIds).execute();
+
+        List<Message> messages = new ArrayList<>();
+        while (response.getMessages() != null) {
+            messages.addAll(response.getMessages());
+            if (response.getNextPageToken() != null) {
+                String pageToken = response.getNextPageToken();
+                response = mService.users().messages().list(mUserID).setLabelIds(labelIds)
+                        .setPageToken(pageToken).execute();
+            } else {
+                break;
+            }
+        }
+        return messages;
+    }
+
+    @Override
     public Message getMessageById(String messageId) throws Exception {
         return mService.users().messages().get("me", messageId)
                 .setFormat("FULL").execute();
