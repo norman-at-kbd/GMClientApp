@@ -15,5 +15,5 @@ public interface INetworkMailClient extends ICommonMailClient{
     void delete(String messageID);
     List<Message> getGoogleMessageList(String query) throws Exception;
     Message getMessageById(String messageId) throws Exception;
-    List<Message> getGoogleMessageListWithLabels(List<String> labelIds) throws IOException;
+    List<Message> getGoogleMessageListWithLabels(List<String> labelIds) throws Exception;
 }

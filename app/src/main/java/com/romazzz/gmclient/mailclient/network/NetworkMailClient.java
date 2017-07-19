@@ -1,5 +1,6 @@
 package com.romazzz.gmclient.mailclient.network;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -124,27 +125,24 @@ public class NetworkMailClient implements INetworkMailClient {
 
     @Override
     public List<Message> getGoogleMessageList(String query) throws Exception {
-        ListMessagesResponse response = mService.users().messages().
-                list(mUserID).setQ(query).execute();
-        List<Message> messages = new ArrayList<>();
-        while (response.getMessages() != null) {
-            messages.addAll(response.getMessages());
-            if (response.getNextPageToken() != null) {
-                String pageToken = response.getNextPageToken();
-                response = mService.users().messages().list(mUserID).setQ(query)
-                        .setPageToken(pageToken).execute();
-            } else {
-                break;
-            }
-        }
-        return messages;
+        return getGoogleMessages(query,null);
     }
 
     @Override
-    public List<Message> getGoogleMessageListWithLabels(List<String> labelIds) throws IOException {
-        ListMessagesResponse response = mService.users().messages().list(mUserID)
-                .setLabelIds(labelIds).execute();
+    public List<Message> getGoogleMessageListWithLabels(List<String> labelIds) throws Exception {
+        return getGoogleMessages("", labelIds);
+    }
 
+    public List<Message> getGoogleMessages(@NonNull String query, List<String> labelIds) throws Exception {
+
+        ListMessagesResponse response;
+        Gmail.Users.Messages.List userMessages = mService.users().messages().list(mUserID);
+        if(!"".equals(query))
+            userMessages.setQ(query);
+        if(labelIds!=null && !labelIds.isEmpty())
+            userMessages.setLabelIds(labelIds);
+
+        response = userMessages.execute();
         List<Message> messages = new ArrayList<>();
         while (response.getMessages() != null) {
             messages.addAll(response.getMessages());
