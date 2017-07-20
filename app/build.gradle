@@ -56,8 +56,7 @@ dependencies {
     compile('com.google.apis:google-api-services-gmail:v1-rev60-1.22.0') {
         exclude group: 'org.apache.httpcomponents'
     }
-//    compile  'javax.mail:javax.mail-api:1.5.3'
-//    compile('com.sun.mail:javax.mail:1.5.5')
+
     compile 'com.sun.mail:android-mail:1.5.5'
     compile 'com.sun.mail:android-activation:1.5.5'
 }

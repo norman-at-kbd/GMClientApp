@@ -2,9 +2,7 @@ package com.romazzz.gmclient.mailclient.network;
 
 import com.google.api.services.gmail.model.Message;
 import com.romazzz.gmclient.mailclient.ICommonMailClient;
-import com.romazzz.gmclient.mailclient.IMessage;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
